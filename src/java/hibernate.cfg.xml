@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <!--<property name="hibernate.connection.url">jdbc:mysql://192.168.179.128:3306/pcm</property>-->
+    <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/pcm</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">abc@1234</property>
+    <property name="hibernate.show_sql">false</property>
+    <property name="hibernate.format_sql">true</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <!--        
+        <property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</property>
+        <property name="hibernate.cache.region.factory_class">net.sf.ehcache.hibernate.EhCacheRegionFactory</property>
+        <property name="hibernate.cache.use_query_cache">true</property>
+        <property name="hibernate.cache.use_second_level_cache">false</property>
+        <property name="hibernate.cache.use_structured_entries">false</property>     
+        <property name="hibernate.cache.generate_statistics">true</property>
+        -->
+    <!--         c3p0 connection pool -->
+    <property name="hibernate.c3p0.min_size">1</property>
+    <property name="hibernate.c3p0.max_size">5</property>
+    <property name="hibernate.c3p0.timeout">300</property>
+    <property name="hibernate.c3p0.max_statements">50</property>
+    <property name="hibernate.c3p0.maxAdministrativeTaskTime">0</property>
+    <property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+    <property name="hibernate.c3p0.validate">true</property>
+    <property name="hibernate.c3p0.testConnectionOnCheckout">true</property>
+    <property name="hibernate.c3p0.idleConnectionTestPeriod">1800</property>
+    <property name="hibernate.c3p0.preferredTestQuery">SELECT 1 from dual</property>
+    <!--         End c3p0 connection pool -->
+    <mapping resource="com/rdsic/pcm/data/entity/Codedef.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Function.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Section.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Oprtag.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Piledesign.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Silo.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Permission.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/User.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Reportdef.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Oprdef.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Employee.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Dlog.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Userclass.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Team.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/VUseractive.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Usertoken.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Cementprod.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Drlrecmast.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Drillingmachine.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Mixingplant.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Reportparam.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Cementin.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/VUserpermission.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/VUserinformation.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Drlrecmemo.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/VProjectpileplan.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Projectasset.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Pcproject.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Cementrecord.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Mixingrecord.hbm.xml"/>
+    <mapping resource="com/rdsic/pcm/data/entity/Pileplan.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

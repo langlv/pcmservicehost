@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Mixingplant" table="mixingplant" catalog="pcm" optimistic-lock="version">
+        <id name="mpid" type="java.lang.Integer">
+            <column name="MPID" />
+            <generator class="identity" />
+        </id>
+        <property name="code" type="string">
+            <column name="CODE" length="50" not-null="true">
+                <comment>Code of mixing plant</comment>
+            </column>
+        </property>
+        <property name="name" type="string">
+            <column name="NAME">
+                <comment>Name of mixing plant</comment>
+            </column>
+        </property>
+        <property name="sid1" type="java.lang.Integer">
+            <column name="SID1">
+                <comment>Silo id1, look up from SILO</comment>
+            </column>
+        </property>
+        <property name="sid2" type="java.lang.Integer">
+            <column name="SID2">
+                <comment>Silo id2, look up from SILO</comment>
+            </column>
+        </property>
+        <property name="sid3" type="java.lang.Integer">
+            <column name="SID3">
+                <comment>Silo id3, look up from SILO</comment>
+            </column>
+        </property>
+        <property name="sid4" type="java.lang.Integer">
+            <column name="SID4">
+                <comment>Silo id4, look up from SILO</comment>
+            </column>
+        </property>
+        <property name="sid5" type="java.lang.Integer">
+            <column name="SID5">
+                <comment>Silo id5, look up from SILO</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

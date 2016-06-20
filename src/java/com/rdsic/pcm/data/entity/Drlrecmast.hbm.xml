@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Drlrecmast" table="drlrecmast" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.DrlrecmastId">
+            <key-property name="drid" type="string">
+                <column name="DRID" length="50" />
+            </key-property>
+            <key-property name="ppid" type="int">
+                <column name="PPID" />
+            </key-property>
+            <key-property name="drilltime" type="timestamp">
+                <column name="DRILLTIME" length="19" />
+            </key-property>
+        </composite-id>
+        <property name="prid" type="int">
+            <column name="PRID" not-null="true">
+                <comment>Project id</comment>
+            </column>
+        </property>
+        <property name="dmid" type="int">
+            <column name="DMID" not-null="true">
+                <comment>Drilling machine id</comment>
+            </column>
+        </property>
+        <property name="deepmeter" type="java.lang.Double">
+            <column name="DEEPMETER" precision="11">
+                <comment>Deep meter</comment>
+            </column>
+        </property>
+        <property name="direction" type="java.lang.Integer">
+            <column name="DIRECTION">
+                <comment>Drilling direction (1=down, -1=up)</comment>
+            </column>
+        </property>
+        <property name="emptydrill" type="java.lang.Boolean">
+            <column name="EMPTYDRILL">
+                <comment>Indicate that this record is drilling without concrete</comment>
+            </column>
+        </property>
+        <property name="drillmeter" type="java.lang.Double">
+            <column name="DRILLMETER" precision="11">
+                <comment>Up or down speed</comment>
+            </column>
+        </property>
+        <property name="rotatemeter" type="java.lang.Double">
+            <column name="ROTATEMETER" precision="11">
+                <comment>Rotation speed</comment>
+            </column>
+        </property>
+        <property name="rq" type="java.lang.Double">
+            <column name="RQ" precision="11">
+                <comment>Actual concrete counter of this drilling record.</comment>
+            </column>
+        </property>
+        <property name="rqtotal" type="java.lang.Double">
+            <column name="RQTOTAL" precision="11">
+                <comment>Total concrete counter from drilling machine</comment>
+            </column>
+        </property>
+        <property name="amp" type="java.lang.Double">
+            <column name="AMP" precision="11">
+                <comment>Electric ampe (with CDM tech)</comment>
+            </column>
+        </property>
+        <property name="psr" type="java.lang.Double">
+            <column name="PSR" precision="11">
+                <comment>Concrete presure (with CMS tech)</comment>
+            </column>
+        </property>
+        <property name="ndn" type="java.lang.Double">
+            <column name="NDN" precision="11">
+                <comment>Number of cutting (= Vr/V*N_CutWing by drilling machine)</comment>
+            </column>
+        </property>
+        <property name="rdq" type="java.lang.Double">
+            <column name="RDQ" precision="11">
+                <comment>Counter of concrete per met</comment>
+            </column>
+        </property>
+        <property name="rdqtotal" type="java.lang.Double">
+            <column name="RDQTOTAL" precision="11">
+                <comment>Total concrete per met (= SumRQ(hientai)-(truoc)/0.5)</comment>
+            </column>
+        </property>
+        <property name="startrec" type="java.lang.Boolean">
+            <column name="STARTREC">
+                <comment>First record when start drilling</comment>
+            </column>
+        </property>
+        <property name="endrec" type="java.lang.Boolean">
+            <column name="ENDREC">
+                <comment>Last record of drilling</comment>
+            </column>
+        </property>
+        <property name="recby" type="java.lang.Integer">
+            <column name="RECBY">
+                <comment>Record uploader, look up from EMPLOYEE.EID</comment>
+            </column>
+        </property>
+        <property name="rectime" type="timestamp">
+            <column name="RECTIME" length="19">
+                <comment>Record upload time</comment>
+            </column>
+        </property>
+        <property name="appby" type="string">
+            <column name="APPBY" length="50">
+                <comment>Record approver, look up from USER.USERID</comment>
+            </column>
+        </property>
+        <property name="apptime" type="timestamp">
+            <column name="APPTIME" length="19">
+                <comment>Record approval time</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

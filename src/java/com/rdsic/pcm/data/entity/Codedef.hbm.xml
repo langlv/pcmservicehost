@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Codedef" table="codedef" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.CodedefId">
+            <key-property name="code" type="string">
+                <column name="CODE" length="50" />
+            </key-property>
+            <key-property name="grp" type="string">
+                <column name="GRP" length="52" />
+            </key-property>
+            <key-property name="tag" type="string">
+                <column name="TAG" length="53" />
+            </key-property>
+        </composite-id>
+        <property name="text" type="string">
+            <column name="TEXT" length="51" not-null="true">
+                <comment>Text to display of this code. Future use will be (EN|Text in English#VN|Text in Vietnamese)</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

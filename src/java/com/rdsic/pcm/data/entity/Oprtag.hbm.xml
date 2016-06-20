@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Oprtag" table="oprtag" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.OprtagId">
+            <key-property name="oprcode" type="string">
+                <column name="OPRCODE" length="50" />
+            </key-property>
+            <key-property name="tag" type="string">
+                <column name="TAG" length="50" />
+            </key-property>
+        </composite-id>
+        <property name="type" type="string">
+            <column name="TYPE">
+                <comment>Tag data type, look up from CODEDEF</comment>
+            </column>
+        </property>
+        <property name="seq" type="java.lang.Integer">
+            <column name="SEQ">
+                <comment>Tag order/sequence</comment>
+            </column>
+        </property>
+        <property name="direction" type="java.lang.Integer">
+            <column name="DIRECTION">
+                <comment>Direction of tag, 0=request 1=response</comment>
+            </column>
+        </property>
+        <property name="required" type="java.lang.Boolean">
+            <column name="REQUIRED">
+                <comment>Tag required</comment>
+            </column>
+        </property>
+        <property name="defval" type="string">
+            <column name="DEFVAL" length="1000">
+                <comment>Default value</comment>
+            </column>
+        </property>
+        <property name="description" type="string">
+            <column name="DESCRIPTION" length="500">
+                <comment>Tag description</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

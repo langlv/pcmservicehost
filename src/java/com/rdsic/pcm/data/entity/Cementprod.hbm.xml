@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Cementprod" table="cementprod" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.CementprodId">
+            <key-property name="name" type="string">
+                <column name="NAME" />
+            </key-property>
+            <key-property name="producer" type="string">
+                <column name="PRODUCER" length="50" />
+            </key-property>
+        </composite-id>
+        <property name="type" type="string">
+            <column name="TYPE" length="50" not-null="true">
+                <comment>Cement type</comment>
+            </column>
+        </property>
+        <property name="pkgweight" type="java.lang.Integer">
+            <column name="PKGWEIGHT">
+                <comment>Weight per package, by kg</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

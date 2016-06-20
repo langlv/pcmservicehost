@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Dlog" table="dlog" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.DlogId">
+            <key-property name="date" type="date">
+                <column name="DATE" length="10" />
+            </key-property>
+            <key-property name="actionid" type="string">
+                <column name="ACTIONID" length="50" />
+            </key-property>
+            <key-property name="direction" type="int">
+                <column name="DIRECTION" />
+            </key-property>
+        </composite-id>
+        <property name="userid" type="string">
+            <column name="USERID" length="50">
+                <comment>User id who create the action</comment>
+            </column>
+        </property>
+        <property name="clientid" type="string">
+            <column name="CLIENTID" not-null="true">
+                <comment>Client id to request the action</comment>
+            </column>
+        </property>
+        <property name="reqat" type="timestamp">
+            <column name="REQAT" length="19">
+                <comment>Client request date time</comment>
+            </column>
+        </property>
+        <property name="resat" type="timestamp">
+            <column name="RESAT" length="19">
+                <comment>Host response date time</comment>
+            </column>
+        </property>
+        <property name="operation" type="string">
+            <column name="OPERATION" length="50">
+                <comment>Operation name of action</comment>
+            </column>
+        </property>
+        <property name="rawreq" type="string">
+            <column name="RAWREQ">
+                <comment>Raw request from client</comment>
+            </column>
+        </property>
+        <property name="rawres" type="string">
+            <column name="RAWRES">
+                <comment>Raw response to client</comment>
+            </column>
+        </property>
+        <property name="recid" type="string">
+            <column name="RECID">
+                <comment>Effective record id in database</comment>
+            </column>
+        </property>
+        <property name="tbl" type="string">
+            <column name="TBL" length="1000">
+                <comment>Effective table in database</comment>
+            </column>
+        </property>
+        <property name="lfld" type="string">
+            <column name="LFLD" length="1000">
+                <comment>List of fields separated by comma</comment>
+            </column>
+        </property>
+        <property name="lval" type="string">
+            <column name="LVAL" length="1000">
+                <comment>List of values separated by comma</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Piledesign" table="piledesign" catalog="pcm" optimistic-lock="version">
+        <id name="code" type="string">
+            <column name="CODE" length="50" />
+            <generator class="assigned" />
+        </id>
+        <property name="name" type="string">
+            <column name="NAME" length="1000">
+                <comment>Silo Id</comment>
+            </column>
+        </property>
+        <property name="diameter" type="double">
+            <column name="DIAMETER" precision="11" not-null="true">
+                <comment>Diameter of pile</comment>
+            </column>
+        </property>
+        <property name="el0" type="double">
+            <column name="EL0" precision="11" not-null="true">
+                <comment>Design height</comment>
+            </column>
+        </property>
+        <property name="el1" type="double">
+            <column name="EL1" precision="11" not-null="true">
+                <comment>Design top height</comment>
+            </column>
+        </property>
+        <property name="el2" type="double">
+            <column name="EL2" precision="11" not-null="true">
+                <comment>Design point height</comment>
+            </column>
+        </property>
+        <property name="lp" type="java.lang.Double">
+            <column name="LP" precision="11">
+                <comment>Pile length (=EL1-EL2)</comment>
+            </column>
+        </property>
+        <property name="ld" type="java.lang.Double">
+            <column name="LD" precision="11">
+                <comment>Drilling length (=EL0-EL2)</comment>
+            </column>
+        </property>
+        <property name="q" type="double">
+            <column name="Q" precision="11" not-null="true">
+                <comment>Concrete per met</comment>
+            </column>
+        </property>
+        <property name="qlim" type="java.lang.Double">
+            <column name="QLIM" precision="11">
+                <comment>Minimum concrete per met (=Q*(1-EPS))</comment>
+            </column>
+        </property>
+        <property name="qtotal" type="java.lang.Double">
+            <column name="QTOTAL" precision="11">
+                <comment>Total concrete for this pile (=Q*LP)</comment>
+            </column>
+        </property>
+        <property name="n" type="double">
+            <column name="N" precision="11" not-null="true">
+                <comment>Drilling cutting count</comment>
+            </column>
+        </property>
+        <property name="nlim" type="java.lang.Double">
+            <column name="NLIM" precision="11">
+                <comment>Minimum drilling cutting count (=N*(1-EPS))</comment>
+            </column>
+        </property>
+        <property name="c" type="java.lang.Double">
+            <column name="C" precision="11">
+                <comment>Ham luong cement</comment>
+            </column>
+        </property>
+        <property name="wc" type="java.lang.Double">
+            <column name="WC" precision="11">
+                <comment>Ty le W/C</comment>
+            </column>
+        </property>
+        <property name="eps" type="java.lang.Double">
+            <column name="EPS" precision="11">
+                <comment>Epsilon of each pile</comment>
+            </column>
+        </property>
+        <property name="cadfile" type="string">
+            <column name="CADFILE" length="1000">
+                <comment>Path to CAD file</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

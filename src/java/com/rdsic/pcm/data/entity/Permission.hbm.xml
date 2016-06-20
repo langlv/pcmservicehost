@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Permission" table="permission" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.PermissionId">
+            <key-property name="classid" type="string">
+                <column name="CLASSID" length="50" />
+            </key-property>
+            <key-property name="fid" type="int">
+                <column name="FID" />
+            </key-property>
+        </composite-id>
+        <property name="starttime" type="timestamp">
+            <column name="STARTTIME" length="19">
+                <comment>Start time</comment>
+            </column>
+        </property>
+        <property name="endtime" type="timestamp">
+            <column name="ENDTIME" length="19">
+                <comment>End time</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

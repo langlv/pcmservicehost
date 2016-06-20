@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.User" table="user" catalog="pcm" optimistic-lock="version">
+        <id name="userid" type="string">
+            <column name="USERID" length="50" />
+            <generator class="assigned" />
+        </id>
+        <property name="firstname" type="string">
+            <column name="FIRSTNAME">
+                <comment>First Name</comment>
+            </column>
+        </property>
+        <property name="lastname" type="string">
+            <column name="LASTNAME">
+                <comment>Last name</comment>
+            </column>
+        </property>
+        <property name="password" type="string">
+            <column name="PASSWORD" not-null="true">
+                <comment>Password</comment>
+            </column>
+        </property>
+        <property name="datecreate" type="date">
+            <column name="DATECREATE" length="10">
+                <comment>Date of creation</comment>
+            </column>
+        </property>
+        <property name="dateexpire" type="date">
+            <column name="DATEEXPIRE" length="10">
+                <comment>Expiration date</comment>
+            </column>
+        </property>
+        <property name="userclass" type="string">
+            <column name="USERCLASS" length="50" not-null="true">
+                <comment>User class. Look up from USERCLASS table</comment>
+            </column>
+        </property>
+        <property name="lastlogin" type="timestamp">
+            <column name="LASTLOGIN" length="19">
+                <comment>Last time login</comment>
+            </column>
+        </property>
+        <property name="loginfailcount" type="int">
+            <column name="LOGINFAILCOUNT" not-null="true">
+                <comment>Number of login fail count.</comment>
+            </column>
+        </property>
+        <property name="lastactive" type="timestamp">
+            <column name="LASTACTIVE" length="19">
+                <comment>Last time user active</comment>
+            </column>
+        </property>
+        <property name="token" type="string">
+            <column name="TOKEN">
+                <comment>User token</comment>
+            </column>
+        </property>
+        <property name="status" type="string">
+            <column name="STATUS" length="50" not-null="true">
+                <comment>User status</comment>
+            </column>
+        </property>
+        <property name="eid" type="java.lang.Integer">
+            <column name="EID">
+                <comment>Employee ID to use this user</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

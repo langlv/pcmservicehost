@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 21, 2015 11:39:24 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="pcm" name="com.rdsic.pcm.data.entity.VProjectpileplan" optimistic-lock="version" table="v_projectpileplan">
+    <composite-id class="com.rdsic.pcm.data.entity.VProjectpileplanId" name="id">
+      <key-property name="projectcode" type="string">
+        <column length="50" name="projectcode"/>
+      </key-property>
+      <key-property name="projectName" type="string">
+        <column length="500" name="project_name"/>
+      </key-property>
+      <key-property name="projectStart" type="date">
+        <column length="10" name="project_start"/>
+      </key-property>
+      <key-property name="projectEnd" type="date">
+        <column length="10" name="project_end"/>
+      </key-property>
+      <key-property name="pilecode" type="string">
+        <column length="50" name="pilecode"/>
+      </key-property>
+      <key-property name="piletype" type="string">
+        <column length="50" name="piletype"/>
+      </key-property>
+      <key-property name="pileStart" type="timestamp">
+        <column length="19" name="pile_start"/>
+      </key-property>
+      <key-property name="pileFinish" type="timestamp">
+        <column length="19" name="pile_finish"/>
+      </key-property>
+      <key-property name="planx" type="java.lang.Double">
+        <column name="planx" precision="22" scale="0"/>
+      </key-property>
+      <key-property name="plany" type="java.lang.Double">
+        <column name="plany" precision="22" scale="0"/>
+      </key-property>
+      <key-property name="cementuse" type="java.lang.Integer">
+        <column name="cementuse"/>
+      </key-property>
+      <key-property name="rx" type="java.lang.Double">
+        <column name="rx" precision="22" scale="0"/>
+      </key-property>
+      <key-property name="ry" type="java.lang.Double">
+        <column name="ry" precision="22" scale="0"/>
+      </key-property>
+      <key-property name="rel0" type="java.lang.Integer">
+        <column name="rel0"/>
+      </key-property>
+      <key-property name="section" type="string">
+        <column length="50" name="section"/>
+      </key-property>
+      <key-property name="diameter" type="java.lang.Integer">
+        <column name="diameter"/>
+      </key-property>
+      <key-property name="length" type="java.lang.Integer">
+        <column name="length"/>
+      </key-property>
+      <key-property name="el0" type="java.lang.Integer">
+        <column name="el0"/>
+      </key-property>
+      <key-property name="el1" type="java.lang.Integer">
+        <column name="el1"/>
+      </key-property>
+      <key-property name="el2" type="java.lang.Integer">
+        <column name="el2"/>
+      </key-property>
+      <key-property name="qperm" type="java.lang.Integer">
+        <column name="qperm"/>
+      </key-property>
+      <key-property name="qpermlim" type="java.lang.Integer">
+        <column name="qpermlim"/>
+      </key-property>
+      <key-property name="qtotal" type="java.lang.Integer">
+        <column name="qtotal"/>
+      </key-property>
+    </composite-id>
+  </class>
+</hibernate-mapping>

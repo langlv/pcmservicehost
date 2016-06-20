@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.VUserinformation" table="v_userinformation" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.VUserinformationId">
+            <key-property name="userId" type="string">
+                <column name="UserId" length="50" />
+            </key-property>
+            <key-property name="firstName" type="string">
+                <column name="FirstName" />
+            </key-property>
+            <key-property name="lastName" type="string">
+                <column name="LastName" />
+            </key-property>
+            <key-property name="password" type="string">
+                <column name="Password" />
+            </key-property>
+            <key-property name="dateCreate" type="date">
+                <column name="DateCreate" length="10" />
+            </key-property>
+            <key-property name="dateExpire" type="date">
+                <column name="DateExpire" length="10" />
+            </key-property>
+            <key-property name="userClass" type="string">
+                <column name="UserClass" length="50" />
+            </key-property>
+            <key-property name="lastLogin" type="timestamp">
+                <column name="LastLogin" length="19" />
+            </key-property>
+            <key-property name="loginFailCount" type="int">
+                <column name="LoginFailCount" />
+            </key-property>
+            <key-property name="lastActive" type="timestamp">
+                <column name="LastActive" length="19" />
+            </key-property>
+            <key-property name="token" type="string">
+                <column name="Token" />
+            </key-property>
+            <key-property name="status" type="string">
+                <column name="Status" length="50" />
+            </key-property>
+            <key-property name="classid" type="string">
+                <column name="classid" length="50" />
+            </key-property>
+            <key-property name="classname" type="string">
+                <column name="classname" />
+            </key-property>
+            <key-property name="classstatus" type="string">
+                <column name="classstatus" length="8" />
+            </key-property>
+            <key-property name="classfailcount" type="java.lang.Integer">
+                <column name="classfailcount" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

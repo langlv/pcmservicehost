@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:webproject2="http://www.netbeans.org/ns/web-project/2" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSGEN SECTION
+                ===================
+            -->
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
+        </taskdef>
+        <condition property="conf-dir" value="${conf.dir}/" else="">
+            <isset property="conf.dir"/>
+        </condition>
+    </target>
+    <target name="wsimport-service-GenericQuery" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/GenericQuery"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/GenericQuery" destdir="${build.generated.dir}/jax-wsCache/service/GenericQuery" wsdl="${basedir}/${conf-dir}xml-resources/web-services/GenericQuery/wsdl/GenericQuery_v1.0.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/GenericQuery/wsdl/GenericQuery_v1.0.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/GenericQuery"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/GenericQuery">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/GenericQuery">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/GenericQuery/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-GenericQuery" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/rdsic/pileconstructionmanagement/service/genericquery"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/GenericQuery"/>
+    </target>
+    <target name="wsimport-service-UserManagement" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/UserManagement"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/UserManagement" destdir="${build.generated.dir}/jax-wsCache/service/UserManagement" wsdl="${basedir}/${conf-dir}xml-resources/web-services/UserManagement/wsdl/UserManagement_v1.0.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/UserManagement/wsdl/UserManagement_v1.0.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/UserManagement"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/UserManagement">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/UserManagement">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/UserManagement/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-UserManagement" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/rdsic/pileconstructionmanagement/service/usermanagement"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/UserManagement"/>
+    </target>
+    <target name="wsimport-service-Report" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/Report"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/Report" destdir="${build.generated.dir}/jax-wsCache/service/Report" wsdl="${basedir}/${conf-dir}xml-resources/web-services/Report/wsdl/Report_v1.0.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/Report/wsdl/Report_v1.0.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/Report"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/Report">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/Report">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/Report/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-Report" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/rdsic/pileconstructionmanagement/service/report"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/Report"/>
+    </target>
+    <target name="wsimport-service-ProjectPileDesign" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/ProjectPileDesign"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/ProjectPileDesign" destdir="${build.generated.dir}/jax-wsCache/service/ProjectPileDesign" wsdl="${basedir}/${conf-dir}xml-resources/web-services/ProjectPileDesign/wsdl/ProjectPileDesign_v1.0.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/ProjectPileDesign/wsdl/ProjectPileDesign_v1.0.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/ProjectPileDesign"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/ProjectPileDesign">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/ProjectPileDesign">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/ProjectPileDesign/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-ProjectPileDesign" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/rdsic/pileconstructionmanagement/service/projectpiledesign"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/ProjectPileDesign"/>
+    </target>
+    <target name="wsimport-service-PileConstruction" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/service/PileConstruction"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/service/PileConstruction" destdir="${build.generated.dir}/jax-wsCache/service/PileConstruction" wsdl="${basedir}/${conf-dir}xml-resources/web-services/PileConstruction/wsdl/PileConstruction_v1.0.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-services/PileConstruction/wsdl/PileConstruction_v1.0.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/service/PileConstruction"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/service/PileConstruction">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy todir="${build.web.dir}/WEB-INF/wsdl/PileConstruction">
+            <fileset dir="${basedir}/${conf-dir}xml-resources/web-services/PileConstruction/wsdl/"/>
+        </copy>
+    </target>
+    <target name="wsimport-service-clean-PileConstruction" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/rdsic/pileconstructionmanagement/service/pileconstruction"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/service/PileConstruction"/>
+    </target>
+    <target name="wsimport-service-generate" depends="wsimport-service-GenericQuery, wsimport-service-UserManagement, wsimport-service-Report, wsimport-service-ProjectPileDesign, wsimport-service-PileConstruction"/>
+</project>

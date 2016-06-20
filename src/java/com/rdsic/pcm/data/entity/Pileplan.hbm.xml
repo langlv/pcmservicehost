@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Pileplan" table="pileplan" catalog="pcm" optimistic-lock="version">
+        <id name="ppid" type="java.lang.Integer">
+            <column name="PPID" />
+            <generator class="identity" />
+        </id>
+        <property name="prid" type="int">
+            <column name="PRID" not-null="true">
+                <comment>Project id</comment>
+            </column>
+        </property>
+        <property name="sbid" type="java.lang.Integer">
+            <column name="SBID">
+                <comment>Section id for pile construction</comment>
+            </column>
+        </property>
+        <property name="code" type="string">
+            <column name="CODE" length="50" not-null="true">
+                <comment>Pile design code</comment>
+            </column>
+        </property>
+        <property name="x" type="java.lang.Double">
+            <column name="X" precision="11">
+                <comment>Coordinate X</comment>
+            </column>
+        </property>
+        <property name="y" type="java.lang.Double">
+            <column name="Y" precision="11">
+                <comment>Coordinate Y</comment>
+            </column>
+        </property>
+        <property name="rx" type="java.lang.Double">
+            <column name="RX" precision="11">
+                <comment>Actual coordinate X</comment>
+            </column>
+        </property>
+        <property name="ry" type="java.lang.Double">
+            <column name="RY" precision="11">
+                <comment>Actual coordinate Y</comment>
+            </column>
+        </property>
+        <property name="vertically" type="java.lang.Double">
+            <column name="VERTICALLY" precision="11">
+                <comment>Vertical degree of drilling machine</comment>
+            </column>
+        </property>
+        <property name="dmid" type="java.lang.Integer">
+            <column name="DMID">
+                <comment>Drilling machine id</comment>
+            </column>
+        </property>
+        <property name="driver" type="java.lang.Integer">
+            <column name="DRIVER">
+                <comment>Driver id, look up from EMPLOYEE.EID</comment>
+            </column>
+        </property>
+        <property name="team" type="string">
+            <column name="TEAM" length="50">
+                <comment>Employee team code, look up from TEAM table</comment>
+            </column>
+        </property>
+        <property name="mpid" type="java.lang.Integer">
+            <column name="MPID">
+                <comment>Mixing plant id</comment>
+            </column>
+        </property>
+        <property name="sid" type="java.lang.Integer">
+            <column name="SID">
+                <comment>Silo id</comment>
+            </column>
+        </property>
+        <property name="cementtype" type="string">
+            <column name="CEMENTTYPE" length="50">
+                <comment>Cement type to be used</comment>
+            </column>
+        </property>
+        <property name="start" type="timestamp">
+            <column name="START" length="19">
+                <comment>Pile construction scheduled start</comment>
+            </column>
+        </property>
+        <property name="end" type="timestamp">
+            <column name="END" length="19">
+                <comment>Pile construction scheduled end</comment>
+            </column>
+        </property>
+        <property name="actstart" type="timestamp">
+            <column name="ACTSTART" length="19">
+                <comment>Pile construction actual start</comment>
+            </column>
+        </property>
+        <property name="actend" type="timestamp">
+            <column name="ACTEND" length="19">
+                <comment>Pile construction actual end</comment>
+            </column>
+        </property>
+        <property name="rel0" type="java.lang.Double">
+            <column name="REL0" precision="11">
+                <comment>Actual height (default to EL0)</comment>
+            </column>
+        </property>
+        <property name="rel1" type="java.lang.Double">
+            <column name="REL1" precision="11">
+                <comment>Actual top height (=EL1)</comment>
+            </column>
+        </property>
+        <property name="rel2" type="java.lang.Double">
+            <column name="REL2" precision="11">
+                <comment>Actual point height (=REL1-RLp)</comment>
+            </column>
+        </property>
+        <property name="rlp" type="java.lang.Double">
+            <column name="RLP" precision="11">
+                <comment>Actual concrete filled height (= max - RLd from which max = maximum drilling height from Drilling Record)</comment>
+            </column>
+        </property>
+        <property name="rld" type="java.lang.Double">
+            <column name="RLD" precision="11">
+                <comment>Drilling height without concrete</comment>
+            </column>
+        </property>
+        <property name="dspdmax" type="java.lang.Double">
+            <column name="DSPDMAX" precision="11">
+                <comment>Drilling down max speed</comment>
+            </column>
+        </property>
+        <property name="dspdavg" type="java.lang.Double">
+            <column name="DSPDAVG" precision="11">
+                <comment>Drilling down average speed</comment>
+            </column>
+        </property>
+        <property name="uspdmax" type="java.lang.Double">
+            <column name="USPDMAX" precision="11">
+                <comment>Drilling up max speed</comment>
+            </column>
+        </property>
+        <property name="uspdavg" type="java.lang.Double">
+            <column name="USPDAVG" precision="11">
+                <comment>Drilling up average speed</comment>
+            </column>
+        </property>
+        <property name="nmin" type="java.lang.Double">
+            <column name="NMIN" precision="11">
+                <comment>Minimum number of cutting per mette (=Min (N) in drilling records)</comment>
+            </column>
+        </property>
+        <property name="nav" type="java.lang.Double">
+            <column name="NAV" precision="11">
+                <comment>Everage number of cutting per mette (=Everage(N) in drilling records)</comment>
+            </column>
+        </property>
+        <property name="rq" type="java.lang.Double">
+            <column name="RQ" precision="11">
+                <comment>Actual concrete sum up (=Max(sumQ))</comment>
+            </column>
+        </property>
+        <property name="fq" type="java.lang.Double">
+            <column name="FQ" precision="11">
+                <comment>Actual mismatch with design by concrete(= number of record with SumRdQ less than Q_LIM )*0.5/RLp*100)</comment>
+            </column>
+        </property>
+        <property name="fn" type="java.lang.Double">
+            <column name="FN" precision="11">
+                <comment>Actual mismatch with design by number of cutting</comment>
+            </column>
+        </property>
+        <property name="fl" type="java.lang.Double">
+            <column name="FL" precision="11">
+                <comment>Actual mismatch with design by pile length (= (RLp-Lp)/Lp*100)</comment>
+            </column>
+        </property>
+        <property name="fs" type="java.lang.Double">
+            <column name="FS" precision="11">
+                <comment>Proportion of cement (= (RQ-Q)/Q*100)</comment>
+            </column>
+        </property>
+        <property name="status" type="string">
+            <column name="STATUS" length="50" not-null="true">
+                <comment>Drilling status, look up from CODEDEF(GRP=PILEPLAN,TAG=DRLSTATUS)</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

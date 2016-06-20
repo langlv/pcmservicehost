@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.VUserpermission" table="v_userpermission" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.VUserpermissionId">
+            <key-property name="userid" type="string">
+                <column name="userid" length="50" />
+            </key-property>
+            <key-property name="userclass" type="string">
+                <column name="userclass" length="50" />
+            </key-property>
+            <key-property name="fid" type="java.lang.Integer">
+                <column name="FId" />
+            </key-property>
+            <key-property name="address" type="string">
+                <column name="Address" length="1000" />
+            </key-property>
+            <key-property name="type" type="string">
+                <column name="Type" length="50" />
+            </key-property>
+            <key-property name="operation" type="string">
+                <column name="Operation" length="50" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions  xmlns:ns0="http://rdsic.com/pileconstructionmanagement/type/usermanagement/user" xmlns:tns="http://rdsic.com/pileconstructionmanagement/service/usermanagement" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://rdsic.com/pileconstructionmanagement/service/usermanagement">
+    <wsdl:types>
+        <xs:schema xmlns:ns1="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns="http://rdsic.com/pileconstructionmanagement/type/usermanagement/user" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rdsic.com/pileconstructionmanagement/type/usermanagement/user" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:import namespace="http://rdsic.com/pileconstructionmanagement/type/common/service"/>
+            <xs:complexType name="UserClassType">
+                <xs:sequence>
+                    <xs:element name="ClassId" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Name" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Status" type="xs:string" minOccurs="0"/>
+                    <xs:element name="DeactiaveOnFailCount" type="xs:int" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="UserInformationType">
+                <xs:sequence>
+                    <xs:element name="UserID" type="xs:string" minOccurs="0"/>
+                    <xs:element name="FirstName" type="xs:string" minOccurs="0"/>
+                    <xs:element name="LastName" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Password" type="xs:string" minOccurs="0"/>
+                    <xs:element name="DateCreate" type="xs:date" minOccurs="0"/>
+                    <xs:element name="DateExpire" type="xs:date" minOccurs="0"/>
+                    <xs:element name="UserClass" type="ns0:UserClassType" minOccurs="0"/>
+                    <xs:element name="LastLogin" type="xs:dateTime" minOccurs="0"/>
+                    <xs:element name="LoginFailCount" type="xs:int" minOccurs="0"/>
+                    <xs:element name="LastActive" type="xs:dateTime" minOccurs="0"/>
+                    <xs:element name="ActiveToken" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Status" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="UserPermisionType">
+                <xs:sequence>
+                    <xs:element name="Address" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Type" type="xs:string" minOccurs="0"/>
+                    <xs:element name="Operation" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="AddOrUpdateUserReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns1:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="UserID" type="xs:string" minOccurs="0"/>
+                                <xs:element name="FirstName" type="xs:string" minOccurs="0"/>
+                                <xs:element name="LastName" type="xs:string" minOccurs="0"/>
+                                <xs:element name="Password" type="xs:string" minOccurs="0"/>
+                                <xs:element name="DateExpire" type="xs:date" minOccurs="0"/>
+                                <xs:element name="UserClass" type="xs:string" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddOrUpdateUserRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns1:BaseRes"/>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ResetPasswordReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns1:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="UserId" type="xs:string"/>
+                                <xs:element name="NewPassword" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ResetPasswordRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns1:BaseRes"/>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="UnlockUserReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns1:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="UserId" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="UnlockUserRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns1:BaseRes"/>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="UserLoginReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns1:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="UserId" type="xs:string"/>
+                                <xs:element name="Password" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="UserLoginRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns1:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="UserInformation" type="ns0:UserInformationType" minOccurs="0"/>
+                                <xs:element name="Permission" minOccurs="0">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="Function" type="ns0:UserPermisionType" minOccurs="0" maxOccurs="unbounded"/>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="UserLogoutReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns1:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="UserId" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="UserLogoutRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns1:BaseRes"/>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema xmlns="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rdsic.com/pileconstructionmanagement/type/common/service" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:complexType name="BaseReq">
+                <xs:sequence>
+                    <xs:element name="ClientId" type="xs:string"/>
+                    <xs:element name="RequestId" type="xs:string"/>
+                    <xs:element name="RequestDateTime" type="xs:dateTime"/>
+                    <xs:element name="Token" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="BaseRes">
+                <xs:sequence>
+                    <xs:element name="OriginalClientReq" type="BaseReq"/>
+                    <xs:element name="ResponseDateTime" type="xs:dateTime"/>
+                    <xs:element name="Status" type="xs:string"/>
+                    <xs:element name="ErrorCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="ErrorMessage" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="UserManagement">
+        <wsdl:port name="UserManagement" binding="tns:UserManagementBinding">
+            <soap:address location="http://localhost:8080/UserManagement"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="UserManagementPortType">
+        <wsdl:operation name="UserLogout">
+            <wsdl:input message="tns:UserLogoutReq"/>
+            <wsdl:output message="tns:UserLogoutRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="ResetPassword">
+            <wsdl:input message="tns:ResetPasswordReq"/>
+            <wsdl:output message="tns:ResetPasswordRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="UserLogin">
+            <wsdl:input message="tns:UserLoginReq"/>
+            <wsdl:output message="tns:UserLoginRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="UnlockUser">
+            <wsdl:input message="tns:UnlockUserReq"/>
+            <wsdl:output message="tns:UnlockUserRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="AddOrUpdateUser">
+            <wsdl:input message="tns:AddOrUpdateUserReq"/>
+            <wsdl:output message="tns:AddOrUpdateUserRes"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="UserManagementBinding" type="tns:UserManagementPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="UserLogout">
+            <soap:operation style="document" soapAction="pileconstructionmanagement/service/usermanagement/UserLogout"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="req"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="res"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ResetPassword">
+            <soap:operation style="document" soapAction="pileconstructionmanagement/service/usermanagement/ResetPassword"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="UserLogin">
+            <soap:operation style="document" soapAction="pileconstructionmanagement/service/usermanagement/UserLogin"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="UnlockUser">
+            <soap:operation style="document" soapAction="pileconstructionmanagement/service/usermanagement/UnlockUser"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AddOrUpdateUser">
+            <soap:operation style="document" soapAction="pileconstructionmanagement/service/usermanagement/AddOrUpdateUser"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="UserLogoutReq">
+        <wsdl:part name="req" element="ns0:UserLogoutReq"/>
+    </wsdl:message>
+    <wsdl:message name="UserLogoutRes">
+        <wsdl:part name="res" element="ns0:UserLogoutRes"/>
+    </wsdl:message>
+    <wsdl:message name="ResetPasswordReq">
+        <wsdl:part name="parameter" element="ns0:ResetPasswordReq"/>
+    </wsdl:message>
+    <wsdl:message name="ResetPasswordRes">
+        <wsdl:part name="parameter" element="ns0:ResetPasswordRes"/>
+    </wsdl:message>
+    <wsdl:message name="UserLoginReq">
+        <wsdl:part name="parameter" element="ns0:UserLoginReq"/>
+    </wsdl:message>
+    <wsdl:message name="UserLoginRes">
+        <wsdl:part name="parameter" element="ns0:UserLoginRes"/>
+    </wsdl:message>
+    <wsdl:message name="UnlockUserReq">
+        <wsdl:part name="parameter" element="ns0:UnlockUserReq"/>
+    </wsdl:message>
+    <wsdl:message name="UnlockUserRes">
+        <wsdl:part name="parameter" element="ns0:UnlockUserRes"/>
+    </wsdl:message>
+    <wsdl:message name="AddOrUpdateUserReq">
+        <wsdl:part name="parameter" element="ns0:AddOrUpdateUserReq"/>
+    </wsdl:message>
+    <wsdl:message name="AddOrUpdateUserRes">
+        <wsdl:part name="parameter" element="ns0:AddOrUpdateUserRes"/>
+    </wsdl:message>
+</wsdl:definitions>

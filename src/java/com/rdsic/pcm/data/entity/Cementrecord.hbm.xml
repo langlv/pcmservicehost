@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Cementrecord" table="cementrecord" catalog="pcm" optimistic-lock="version">
+        <id name="crid" type="java.lang.Integer">
+            <column name="CRID" />
+            <generator class="identity" />
+        </id>
+        <property name="sid" type="int">
+            <column name="SID" not-null="true">
+                <comment>Silo Id</comment>
+            </column>
+        </property>
+        <property name="rectime" type="timestamp">
+            <column name="RECTIME" length="19" not-null="true">
+                <comment>Cement record time</comment>
+            </column>
+        </property>
+        <property name="note" type="string">
+            <column name="NOTE" length="1000">
+                <comment>Note</comment>
+            </column>
+        </property>
+        <property name="curvol" type="int">
+            <column name="CURVOL" not-null="true">
+                <comment>Current cement volume in silo by kg</comment>
+            </column>
+        </property>
+        <property name="curcm" type="string">
+            <column name="CURCM" length="50">
+                <comment>Current cement type in silo</comment>
+            </column>
+        </property>
+        <property name="sumcementin" type="java.lang.Integer">
+            <column name="SUMCEMENTIN">
+                <comment>Total cement input to this silo since last count</comment>
+            </column>
+        </property>
+        <property name="sumcementout" type="java.lang.Integer">
+            <column name="SUMCEMENTOUT">
+                <comment>Total cement was mixed by mixing plant since last count</comment>
+            </column>
+        </property>
+        <property name="sumcementdrl" type="java.lang.Integer">
+            <column name="SUMCEMENTDRL">
+                <comment>Total cement was used by drilling machine which load concrete from mixing plant since last count</comment>
+            </column>
+        </property>
+        <property name="siloloss" type="java.lang.Double">
+            <column name="SILOLOSS" precision="11">
+                <comment>Calculated cement loss in mixing process</comment>
+            </column>
+        </property>
+        <property name="drlloss" type="java.lang.Double">
+            <column name="DRLLOSS" precision="11">
+                <comment>Calculated cement loss in drilling process</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

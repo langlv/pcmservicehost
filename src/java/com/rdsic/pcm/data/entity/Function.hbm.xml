@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Function" table="function" catalog="pcm" optimistic-lock="version">
+        <id name="fid" type="java.lang.Integer">
+            <column name="FID" />
+            <generator class="identity" />
+        </id>
+        <property name="address" type="string">
+            <column name="ADDRESS" length="1000" not-null="true">
+                <comment>Function address</comment>
+            </column>
+        </property>
+        <property name="type" type="string">
+            <column name="TYPE" length="50" not-null="true">
+                <comment>Type of function, look up from CODEDEF</comment>
+            </column>
+        </property>
+        <property name="operation" type="string">
+            <column name="OPERATION" length="50" not-null="true">
+                <comment>Available operation for each function</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

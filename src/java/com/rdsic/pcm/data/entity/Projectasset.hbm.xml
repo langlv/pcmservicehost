@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Projectasset" table="projectasset" catalog="pcm" optimistic-lock="version">
+        <id name="prid" type="int">
+            <column name="PRID" />
+            <generator class="assigned" />
+        </id>
+        <property name="silo" type="string">
+            <column name="SILO" length="1000">
+                <comment>List of silo Ids separate by comma</comment>
+            </column>
+        </property>
+        <property name="emp" type="string">
+            <column name="EMP" length="1000">
+                <comment>List of employee ids separated by comma</comment>
+            </column>
+        </property>
+        <property name="mp" type="string">
+            <column name="MP" length="1000">
+                <comment>List of mixing plant ids separated by comma</comment>
+            </column>
+        </property>
+        <property name="dm" type="string">
+            <column name="DM" length="1000">
+                <comment>List of drilling machine ids separated by comma</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

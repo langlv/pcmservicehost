@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Cementin" table="cementin" catalog="pcm" optimistic-lock="version">
+        <id name="cid" type="java.lang.Integer">
+            <column name="CID" />
+            <generator class="identity" />
+        </id>
+        <property name="projectcode" type="string">
+            <column name="PROJECTCODE" length="50" not-null="true">
+                <comment>Project code</comment>
+            </column>
+        </property>
+        <property name="name" type="string">
+            <column name="NAME" not-null="true">
+                <comment>Cement name. Lookup from CEMENTPROD</comment>
+            </column>
+        </property>
+        <property name="quantity" type="int">
+            <column name="QUANTITY" not-null="true">
+                <comment>Quantity</comment>
+            </column>
+        </property>
+        <property name="proddate" type="date">
+            <column name="PRODDATE" length="10">
+                <comment>Cement produce date</comment>
+            </column>
+        </property>
+        <property name="expdate" type="date">
+            <column name="EXPDATE" length="10">
+                <comment>Cement expiration date</comment>
+            </column>
+        </property>
+        <property name="regnum" type="string">
+            <column name="REGNUM" length="50">
+                <comment>Cement registration number</comment>
+            </column>
+        </property>
+        <property name="transportmtd" type="string">
+            <column name="TRANSPORTMTD" length="50">
+                <comment>Transport type. Lookup from CODEDEF(group=CEMENTIN, tag=TRANSPORTMTD)</comment>
+            </column>
+        </property>
+        <property name="transporter" type="string">
+            <column name="TRANSPORTER">
+                <comment>Name of transport driver</comment>
+            </column>
+        </property>
+        <property name="licplate" type="string">
+            <column name="LICPLATE" length="50">
+                <comment>Transport license plate</comment>
+            </column>
+        </property>
+        <property name="receiver" type="string">
+            <column name="RECEIVER" length="50">
+                <comment>Receiver, look up from EMPLOYEE table</comment>
+            </column>
+        </property>
+        <property name="rcvdate" type="timestamp">
+            <column name="RCVDATE" length="19">
+                <comment>Receive date</comment>
+            </column>
+        </property>
+        <property name="silo" type="int">
+            <column name="SILO" not-null="true">
+                <comment>Silo Id</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

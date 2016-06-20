@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns1="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:tns="http://rdsic.com/pileconstructionmanagement/service/projectpiledesign" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns0="http://rdsic.com/pileconstructionmanagement/type/projectpiledesign" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://rdsic.com/pileconstructionmanagement/service/projectpiledesign">
+    <wsdl:types>
+        <xs:schema xmlns="http://rdsic.com/pileconstructionmanagement/type/projectpiledesign" xmlns:ns0="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rdsic.com/pileconstructionmanagement/type/projectpiledesign" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:import namespace="http://rdsic.com/pileconstructionmanagement/type/common/service"/>
+            <xs:complexType name="AddOrUpdatePileDesignReqType">
+                <xs:sequence>
+                    <xs:element name="PileDesign" type="PileDesignType"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="AddOrUpdatePilePlanReqType">
+                <xs:sequence>
+                    <xs:element name="PilePlan" type="PilePlanType"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="AddOrUpdateProjectReqType">
+                <xs:sequence>
+                    <xs:element name="ProjectDetail" type="PCProjectType"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="DrillingMachineType">
+                <xs:sequence>
+                    <xs:element name="DMID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>ID for each drilling machine (auto increment)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CODE" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Drilling machine code</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NAME" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Drilling machine name</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DRIVER1" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Driver 1, look up from EMPLOYEE.EID</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DRIVER2" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Driver 2, look up from EMPLOYEE.EID</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="FMID1" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Flow meter 1</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="FMID2" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Flow meter 2</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MPID" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Mixing plant id, look up from MIXINGPLANT.MPID</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CUTWING" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Cutting wing of this machine</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ALIM" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Amp limit of machine</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="VLIM" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Vol limit of machine</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="EmployeeType">
+                <xs:sequence>
+                    <xs:element name="EID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>ID for each employee  (auto increment)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SHORTNAME" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Employee short name</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="FULLNAME" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Employee full name</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="TEAM" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Employee team code, look up from TEAM.CODE</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ROLE" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Employee role, look up from CODEDEF table</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="USERID" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="GetPileDesignReqType">
+                <xs:sequence>
+                    <xs:element name="PileCode" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="GetPileDesignResType">
+                <xs:sequence>
+                    <xs:element name="PileDesign" type="PileDesignType"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="GetPilePlanDetailReqType">
+                <xs:choice>
+                    <xs:element name="PPID" type="xs:int"/>
+                    <xs:element name="Plan">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="PRID" type="xs:int"/>
+                                <xs:element name="CODE" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:choice>
+            </xs:complexType>
+            <xs:complexType name="GetPilePlanDetailResType">
+                <xs:sequence>
+                    <xs:element name="PilePlan" type="PilePlanType" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="GetProjectDetailReqType">
+                <xs:sequence>
+                    <xs:element name="Code" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="GetProjectDetailResType">
+                <xs:sequence>
+                    <xs:element name="ProjectDetail" type="PCProjectType"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="MixingPlantType">
+                <xs:sequence>
+                    <xs:element name="MPID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>ID for each mixing plant (auto increment)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CODE" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Code of mixing plant</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NAME" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Name of mixing plant</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SID1" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Silo id1, look up from SILO</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SID2" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Silo id2, look up from SILO</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SID3" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Silo id3, look up from SILO</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SID4" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Silo id4, look up from SILO</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SID5" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Silo id5, look up from SILO</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="PCProjectType">
+                <xs:sequence>
+                    <xs:element name="PRID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>ID of each project (auto increment)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CODE" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Project code</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NAME" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Project name</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="INVNAME" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Invester name</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="IMPLNAME" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Implementation partner</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PMNAME" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Project manager name. Look up from EMPLOYEE table</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ADDRESS" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Address</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="START" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Project scheduled start date</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="FINISH" type="xs:date">
+                        <xs:annotation>
+                            <xs:documentation>Project scheduled end date</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ACTSTART" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual start</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ACTFINISH" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual finish</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NPM" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation/>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NPMLIM" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation/>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="EPS" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation/>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="PileDesignType">
+                <xs:sequence>
+                    <xs:element name="CODE" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Pile code</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NAME" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Silo Id</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DIAMETER" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Diameter of pile</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="EL0" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Design height</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="EL1" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Design top height</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="EL2" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Design point height</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LP" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Pile length (=EL1-EL2)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LD" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Drilling length (=EL0-EL2)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Q" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Concrete per met</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="QLIM" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Minimum concrete per met (=Q*(1-EPS))</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="QTOTAL" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Total concrete for this pile (=Q*LP)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="N" type="xs:double">
+                        <xs:annotation>
+                            <xs:documentation>Drilling cutting count</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NLIM" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Minimum drilling cutting count (=N*(1-EPS))</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="C" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Ham luong cement</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="WC" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Ty le W/C</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="EPS" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Epsilon of each pile</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CADFILE" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Path to CAD file</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="PilePlanType">
+                <xs:sequence>
+                    <xs:element name="PPID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Pile plan id, auto increment</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PRID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Project id</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SBID" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Section id for pile construction</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CODE" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Pile design code</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="X" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Coordinate X</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="Y" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Coordinate Y</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RX" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual coordinate X</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RY" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual coordinate Y</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="VERTICALLY" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Vertical degree of drilling machine</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DMID" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Drilling machine id</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DRIVER" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Driver id, look up from EMPLOYEE.EID</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="TEAM" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Employee team code, look up from TEAM table</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MPID" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Mixing plant id</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SID" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Silo id</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CEMENTTYPE" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Cement type to be used</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="START" type="xs:dateTime" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Pile construction scheduled start</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="END" type="xs:dateTime" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Pile construction scheduled end</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ACTSTART" type="xs:dateTime" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Pile construction actual start</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ACTEND" type="xs:dateTime" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Pile construction actual end</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="REL0" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual height (default to EL0)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="REL1" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual top height (=EL1)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="REL2" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual point height (=REL1-RLp)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RLP" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual concrete filled height (= max - RLd from which max = maximum drilling height from Drilling Record)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RLD" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Drilling height without concrete</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DSPDMAX" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Drilling down max speed</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DSPDAVG" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Drilling down average speed</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="USPDMAX" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Drilling up max speed</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="USPDAVG" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Drilling up average speed</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NMIN" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Minimum number of cutting per mette (=Min (N) in drilling records)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NAV" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Everage number of cutting per mette (=Everage(N) in drilling records)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RQ" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual concrete sum up (=Max(sumQ))</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="FQ" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual  mismatch with design by concrete(= number of record with SumRdQ less than Q_LIM )*0.5/RLp*100)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="FN" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual  mismatch with design by number of cutting </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="FL" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual  mismatch with design by pile length (= (RLp-Lp)/Lp*100)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="FS" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Proportion of cement (= (RQ-Q)/Q*100)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="STATUS" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Drilling status, look up from CODEDEF(GRP=PILEPLAN,TAG=DRLSTATUS)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="SectionType">
+                <xs:sequence>
+                    <xs:element name="SBID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>ID of each section in project (auto increment)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NAME" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Section name</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PROJECTCODE" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Section code</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NOTE" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Note</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PILECOUNT" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Number of piles to be constructed in this section</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="SiloType">
+                <xs:sequence>
+                    <xs:element name="SID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>ID for each Silo (auto increment)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CODE" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Silo code</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NAME" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Silo name</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DESIGNVOL" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Silo design volume in kg</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ACTUALVOL" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual volume in kg</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ACTUALCM" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual cement type in silo</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LASTUPDATED" type="xs:dateTime" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Last updated time of actual cement volumn in this silo</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="TeamType">
+                <xs:sequence>
+                    <xs:element name="PRID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Project ID</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CODE" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Team code</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NAME" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Name of team</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="EMPCNT" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Number of employees assigned to this team</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="AddOrUpdatePileDesignReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="Data" type="AddOrUpdatePileDesignReqType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddOrUpdatePileDesignRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="CODE" type="xs:string" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddOrUpdatePilePlanReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="Data" type="AddOrUpdatePilePlanReqType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddOrUpdatePilePlanRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="PPID" type="xs:int" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddOrUpdateProjectReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="Data" type="AddOrUpdateProjectReqType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddOrUpdateProjectRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="PRID" type="xs:int" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetPileDesignReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="PileDesign" type="GetPileDesignReqType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetPileDesignRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="Data" type="GetPileDesignResType" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetPilePlanDetailReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="PilePlan" type="GetPilePlanDetailReqType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetPilePlanDetailRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="Data" type="GetPilePlanDetailResType" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetProjectDetailReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="Project" type="GetProjectDetailReqType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetProjectDetailRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="Data" type="GetProjectDetailResType" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema xmlns="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rdsic.com/pileconstructionmanagement/type/common/service" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:complexType name="BaseReq">
+                <xs:sequence>
+                    <xs:element name="ClientId" type="xs:string"/>
+                    <xs:element name="RequestId" type="xs:string"/>
+                    <xs:element name="RequestDateTime" type="xs:dateTime"/>
+                    <xs:element name="Token" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="BaseRes">
+                <xs:sequence>
+                    <xs:element name="OriginalClientReq" type="ns1:BaseReq"/>
+                    <xs:element name="ResponseDateTime" type="xs:dateTime"/>
+                    <xs:element name="Status" type="xs:string"/>
+                    <xs:element name="ErrorCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="ErrorMessage" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="ProjectPileDesign">
+        <wsdl:port name="ProjectPileDesignEndpoint" binding="tns:ProjectPileDesignEndpointBinding">
+            <soap:address location="http://localhost:8080/pileconstructionmanagement/service/projectpiledesign"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="ProjectPileDesignPortType">
+        <wsdl:operation name="GetPileDesign">
+            <wsdl:input message="tns:GetPileDesignReq"/>
+            <wsdl:output message="tns:GetPileDesignRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="AddOrUpdatePileDesign">
+            <wsdl:input message="tns:AddOrUpdatePileDesignReq"/>
+            <wsdl:output message="tns:AddOrUpdatePileDesignRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="AddOrUpdateProject">
+            <wsdl:input message="tns:AddOrUpdateProjectReq"/>
+            <wsdl:output message="tns:AddOrUpdateProjectRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="AddOrUpdatePilePlan">
+            <wsdl:input message="tns:AddOrUpdatePilePlanReq"/>
+            <wsdl:output message="tns:AddOrUpdatePilePlanRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetProjectDetail">
+            <wsdl:input message="tns:GetProjectDetailReq"/>
+            <wsdl:output message="tns:GetProjectDetailRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetProjectPilePlan">
+            <wsdl:input message="tns:GetPilePlanReq"/>
+            <wsdl:output message="tns:GetPilePlanRes"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ProjectPileDesignEndpointBinding" type="tns:ProjectPileDesignPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetPileDesign">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/projectpiledesign/GetPileDesign"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AddOrUpdatePileDesign">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/projectpiledesign/AddOrUpdatePileDesign"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AddOrUpdateProject">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/projectpiledesign/AddOrUpdateProject"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AddOrUpdatePilePlan">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/projectpiledesign/AddOrUpdatePilePlan"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetProjectDetail">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/projectpiledesign/GetProjectDetail"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetProjectPilePlan">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/projectpiledesign/GetProjectPilePlan"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="parameter"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="GetPileDesignReq">
+        <wsdl:part name="parameter" element="ns0:GetPileDesignReq"/>
+    </wsdl:message>
+    <wsdl:message name="GetPileDesignRes">
+        <wsdl:part name="parameter" element="ns0:GetPileDesignRes"/>
+    </wsdl:message>
+    <wsdl:message name="AddOrUpdatePileDesignReq">
+        <wsdl:part name="parameter" element="ns0:AddOrUpdatePileDesignReq"/>
+    </wsdl:message>
+    <wsdl:message name="AddOrUpdatePileDesignRes">
+        <wsdl:part name="parameter" element="ns0:AddOrUpdatePileDesignRes"/>
+    </wsdl:message>
+    <wsdl:message name="AddOrUpdateProjectReq">
+        <wsdl:part name="parameter" element="ns0:AddOrUpdateProjectReq"/>
+    </wsdl:message>
+    <wsdl:message name="AddOrUpdateProjectRes">
+        <wsdl:part name="parameter" element="ns0:AddOrUpdateProjectRes"/>
+    </wsdl:message>
+    <wsdl:message name="AddOrUpdatePilePlanReq">
+        <wsdl:part name="parameter" element="ns0:AddOrUpdatePilePlanReq"/>
+    </wsdl:message>
+    <wsdl:message name="AddOrUpdatePilePlanRes">
+        <wsdl:part name="parameter" element="ns0:AddOrUpdatePilePlanRes"/>
+    </wsdl:message>
+    <wsdl:message name="GetProjectDetailReq">
+        <wsdl:documentation>test</wsdl:documentation>
+        <wsdl:part name="parameter" element="ns0:GetProjectDetailReq"/>
+    </wsdl:message>
+    <wsdl:message name="GetProjectDetailRes">
+        <wsdl:part name="parameter" element="ns0:GetProjectDetailRes"/>
+    </wsdl:message>
+    <wsdl:message name="GetPilePlanReq">
+        <wsdl:part name="parameter" element="ns0:GetPilePlanDetailReq"/>
+    </wsdl:message>
+    <wsdl:message name="GetPilePlanRes">
+        <wsdl:part name="parameter" element="ns0:GetPilePlanDetailRes"/>
+    </wsdl:message>
+</wsdl:definitions>

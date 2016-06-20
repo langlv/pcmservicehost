@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns1="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:tns="http://rdsic.com/pileconstructionmanagement/service/genericquery" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns0="http://rdsic.com/pileconstructionmanagement/type/genericquery" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://rdsic.com/pileconstructionmanagement/service/genericquery">
+    <wsdl:types>
+        <xs:schema xmlns="http://rdsic.com/pileconstructionmanagement/type/genericquery" xmlns:ns0="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rdsic.com/pileconstructionmanagement/type/genericquery" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:import namespace="http://rdsic.com/pileconstructionmanagement/type/common/service"/>
+            <xs:complexType name="AddOrUpdateQueryResponseType">
+                <xs:sequence>
+                    <xs:element name="UpdatedRecordCount" type="xs:int"/>
+                    <xs:element name="UpdatedAction" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="AddOrUpdateQueryType">
+                <xs:sequence>
+                    <xs:element name="SQL" type="xs:string"/>
+                    <xs:element name="Params" type="QueryParamType" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="QueryParamType">
+                <xs:sequence>
+                    <xs:element name="StringParam" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Name" type="xs:string"/>
+                                <xs:element name="Value" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="NumericParam" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Name" type="xs:string"/>
+                                <xs:element name="Value" type="xs:double"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="DatetimeParam" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="Name" type="xs:string"/>
+                                <xs:element name="Value" type="xs:dateTime"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="SelectQueryResponseType">
+                <xs:sequence>
+                    <xs:element name="RecordCount" type="xs:int"/>
+                    <xs:element name="JSONData" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="SelectQueryType">
+                <xs:sequence>
+                    <xs:element name="SQL" type="xs:string"/>
+                    <xs:element name="Params" type="QueryParamType" minOccurs="0"/>
+                    <xs:element name="maxRowCount" type="xs:int" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="AddOrUpdateReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="Query" type="AddOrUpdateQueryType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddOrUpdateRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="Result" type="AddOrUpdateQueryResponseType" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SelectQueryReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="Query" type="SelectQueryType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="SelectQueryRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="DataSet" type="SelectQueryResponseType" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema xmlns="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rdsic.com/pileconstructionmanagement/type/common/service" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:complexType name="BaseReq">
+                <xs:sequence>
+                    <xs:element name="ClientId" type="xs:string"/>
+                    <xs:element name="RequestId" type="xs:string"/>
+                    <xs:element name="RequestDateTime" type="xs:dateTime"/>
+                    <xs:element name="Token" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="BaseRes">
+                <xs:sequence>
+                    <xs:element name="OriginalClientReq" type="ns1:BaseReq"/>
+                    <xs:element name="ResponseDateTime" type="xs:dateTime"/>
+                    <xs:element name="Status" type="xs:string"/>
+                    <xs:element name="ErrorCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="ErrorMessage" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="GenericQuery">
+        <wsdl:port name="GenericQueryPort" binding="tns:GenericQueryPortBinding">
+            <soap:address location="http://localhost:8080/GenericQuery"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="GenericQueryPortType">
+        <wsdl:operation name="Select">
+            <wsdl:input message="tns:SelectQueryReq"/>
+            <wsdl:output message="tns:SelectQueryRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="AddOrUpdate">
+            <wsdl:input message="tns:AddOrUpdateQueryReq"/>
+            <wsdl:output message="tns:AddOrUpdateQueryRes"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="GenericQueryPortBinding" type="tns:GenericQueryPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Select">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/genericquery/Select"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="req"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="res"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AddOrUpdate">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/genericquery/AddOrUpdate"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="req"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="res"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="SelectQueryReq">
+        <wsdl:part name="req" element="ns0:SelectQueryReq"/>
+    </wsdl:message>
+    <wsdl:message name="SelectQueryRes">
+        <wsdl:part name="res" element="ns0:SelectQueryRes"/>
+    </wsdl:message>
+    <wsdl:message name="AddOrUpdateQueryReq">
+        <wsdl:part name="req" element="ns0:AddOrUpdateReq"/>
+    </wsdl:message>
+    <wsdl:message name="AddOrUpdateQueryRes">
+        <wsdl:part name="res" element="ns0:AddOrUpdateRes"/>
+    </wsdl:message>
+</wsdl:definitions>

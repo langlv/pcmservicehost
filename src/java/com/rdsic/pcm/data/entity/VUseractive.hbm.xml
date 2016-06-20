@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.VUseractive" table="v_useractive" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.VUseractiveId">
+            <key-property name="userid" type="string">
+                <column name="userid" length="50" />
+            </key-property>
+            <key-property name="token" type="string">
+                <column name="token" />
+            </key-property>
+            <key-property name="lastactive" type="timestamp">
+                <column name="lastactive" length="19" />
+            </key-property>
+            <key-property name="starttime" type="timestamp">
+                <column name="starttime" length="19" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

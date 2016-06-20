@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Employee" table="employee" catalog="pcm" optimistic-lock="version">
+        <id name="eid" type="java.lang.Integer">
+            <column name="EID" />
+            <generator class="identity" />
+        </id>
+        <property name="shortname" type="string">
+            <column name="SHORTNAME" length="50">
+                <comment>Employee short name</comment>
+            </column>
+        </property>
+        <property name="fullname" type="string">
+            <column name="FULLNAME">
+                <comment>Employee full name</comment>
+            </column>
+        </property>
+        <property name="team" type="string">
+            <column name="TEAM" length="50">
+                <comment>Employee team code, look up from TEAM.CODE</comment>
+            </column>
+        </property>
+        <property name="role" type="string">
+            <column name="ROLE" length="50">
+                <comment>Employee role, look up from CODEDEF table</comment>
+            </column>
+        </property>
+        <property name="userid" type="string">
+            <column name="USERID" length="50">
+                <comment>User id to log into pcm system</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

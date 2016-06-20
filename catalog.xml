@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="file:/C:/Users/langl/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/wsdl/user/UserManagement.wsdl" uri="src/conf/xml-resources/web-services/UserManagement/wsdl/UserManagement.wsdl"/>
+    <system systemId="file:/C:/Users/langl/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/wsdl/user/UserManagement.xsd" uri="src/conf/xml-resources/web-services/UserManagement/wsdl/UserManagement.xsd"/>
+    <system systemId="file:/C:/Users/langl/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/wsdl/common/CommonService.xsd" uri="src/conf/xml-resources/web-services/UserManagement/common/CommonService.xsd"/>
+    <system systemId="file:/C:/Users/langl/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/wsdl/UserManagement.wsdl" uri="src/conf/xml-resources/web-services/UserManagement/wsdl/UserManagement.wsdl"/>
+    <system systemId="file:/C:/Users/langl/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/wsdl/UserManagement.xsd" uri="src/conf/xml-resources/web-services/UserManagement/wsdl/UserManagement.xsd"/>
+    <system systemId="file:/C:/Users/langl/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/wsdl/CommonService.xsd" uri="src/conf/xml-resources/web-services/UserManagement/wsdl/CommonService.xsd"/>
+    <system systemId="file:/C:/Users/langl/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/UserManagement.wsdl" uri="src/conf/xml-resources/web-services/UserManagement/wsdl/UserManagement.wsdl"/>
+    <system systemId="file:/C:/Users/langl/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/ProjectPileDesign.wsdl" uri="src/conf/xml-resources/web-services/ProjectPileDesign/wsdl/ProjectPileDesign.wsdl"/>
+    <system systemId="file:/C:/Users/langl/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/UserManagement_v1.0.wsdl" uri="src/conf/xml-resources/web-services/UserManagement/wsdl/UserManagement_v1.0.wsdl"/>
+    <system systemId="file:/C:/Users/langl/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/ProjectPileDesign_v1.0.wsdl" uri="src/conf/xml-resources/web-services/ProjectPileDesign/wsdl/ProjectPileDesign_v1.0.wsdl"/>
+    <system systemId="file:/C:/Users/langl/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/GenericQuery_v1.0.wsdl" uri="src/conf/xml-resources/web-services/GenericQuery/wsdl/GenericQuery_v1.0.wsdl"/>
+    <system systemId="file:/Z:/PilesContructionManagement/03.design/ConcreteWSDL/UserManagement_v1.0.wsdl" uri="src/conf/xml-resources/web-services/UserManagement/wsdl/UserManagement_v1.0.wsdl"/>
+    <system systemId="file:/Z:/PilesContructionManagement/03.design/ConcreteWSDL/PileConstruction_v1.0.wsdl" uri="src/conf/xml-resources/web-services/PileConstruction/wsdl/PileConstruction_v1.0.wsdl"/>
+    <system systemId="file:/Z:/PilesContructionManagement/03.design/ConcreteWSDL/ProjectPileDesign_v1.0.wsdl" uri="src/conf/xml-resources/web-services/ProjectPileDesign/wsdl/ProjectPileDesign_v1.0.wsdl"/>
+    <system systemId="file:/D:/Work/OTHER/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/Report_v1.0.wsdl" uri="src/conf/xml-resources/web-services/Report/wsdl/Report_v1.0.wsdl"/>
+    <system systemId="file:/D:/Work/OTHER/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/PileConstruction_v1.0.wsdl" uri="src/conf/xml-resources/web-services/PileConstruction/wsdl/PileConstruction_v1.0.wsdl"/>
+    <system systemId="file:/D:/Work/OTHER/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/ProjectPileDesign_v1.0.wsdl" uri="src/conf/xml-resources/web-services/ProjectPileDesign/wsdl/ProjectPileDesign_v1.0.wsdl"/>
+</catalog>

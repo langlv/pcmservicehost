@@ -1,0 +1,698 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns1="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:tns="http://rdsic.com/pileconstructionmanagement/service/pileconstruction" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns0="http://rdsic.com/pileconstructionmanagement/type/pileconstruction" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://rdsic.com/pileconstructionmanagement/service/pileconstruction">
+    <wsdl:types>
+        <xs:schema xmlns="http://rdsic.com/pileconstructionmanagement/type/pileconstruction" xmlns:ns0="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rdsic.com/pileconstructionmanagement/type/pileconstruction" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:import namespace="http://rdsic.com/pileconstructionmanagement/type/common/service"/>
+            <xs:complexType name="CementPlanType">
+                <xs:sequence>
+                    <xs:element name="CID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>ID for each record</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PROJECTCODE" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Project code</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NAME" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Cement name. Lookup from CEMENTPROD</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="QUANTITY" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Quantity</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PRODDATE" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Cement produce date</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="EXPDATE" type="xs:date" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Cement expiration date</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="REGNUM" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Cement registration number</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="TRANSPORTMTD" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Transport type. Lookup from CODEDEF(group=CEMENTIN, tag=TRANSPORTMTD)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="TRANSPORTER" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Name of transport driver</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="LICPLATE" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Transport license plate</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RECEIVER" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Receiver, look up from EMPLOYEE table</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RCVDATE" type="xs:dateTime" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Receive date</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SILO" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Silo Id</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="CementRecordType">
+                <xs:sequence>
+                    <xs:element name="CRID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>ID for each record</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Silo Id</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RECTIME" type="xs:dateTime">
+                        <xs:annotation>
+                            <xs:documentation>Cement record time</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NOTE" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Note</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CURVOL" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Current cement volume in silo by kg</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CURCM" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Current cement type in silo</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SUMCEMENTIN" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Total cement input to this silo since last count</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SUMCEMENTOUT" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Total cement was mixed by mixing plant since last count</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SUMCEMENTDRL" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Total cement was used by drilling machine which load concrete from mixing plant since last count</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SILOLOSS" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Calculated cement loss in mixing process</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DRLLOSS" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Calculated cement loss in drilling process</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="DrillingRecordDetailType">
+                <xs:sequence>
+                    <xs:element name="DRID" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>ID for each record, UUID</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PPID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Pile plan id</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PRID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Project id</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DMID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Drilling machine id</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DRILLTIME" type="xs:dateTime">
+                        <xs:annotation>
+                            <xs:documentation>Current drilling time</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DEEPMETER" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Deep meter</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DIRECTION" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Drilling direction (1=down, -1=up)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="EMPTYDRILL" type="xs:boolean" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Indicate that this record is drilling without concrete</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DRILLMETER" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Up or down speed</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ROTATEMETER" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Rotation speed</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RQ" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Actual concrete counter of this drilling record.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RQTOTAL" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Total concrete counter from drilling machine</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="AMP" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Electric ampe (with CDM tech)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PSR" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Concrete presure (with CMS tech)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="NDN" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Number of cutting (= Vr/V*N_CutWing by drilling machine)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RDQ" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Counter of concrete per met</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RDQTOTAL" type="xs:double" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Total concrete per met (= SumRQ(hientai)-(truoc)/0.5)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="STARTREC" type="xs:boolean" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>First record when start drilling </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ENDREC" type="xs:boolean" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Last record of drilling</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RECBY" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Record uploader, look up from EMPLOYEE.EID</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RECTIME" type="xs:dateTime" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Record upload time</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="APPBY" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Record approver, look up from EMPLOYEE.EID</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="APPTIME" type="xs:dateTime" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Record approval time</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="APPSTS" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Record status, look up from CODEDEF</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="DrillingRecordType">
+                <xs:sequence>
+                    <xs:element name="DMID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Drilling machine id</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="RecordTime" type="xs:dateTime"/>
+                    <xs:element name="DrillingData" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element name="PPID" type="xs:int">
+                                    <xs:annotation>
+                                        <xs:documentation>Pile plan id</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="DeepMeter" type="xs:double">
+                                    <xs:annotation>
+                                        <xs:documentation>Deep meter</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="DeepMovement" type="xs:double">
+                                    <xs:annotation>
+                                        <xs:documentation>Movement meter of this drilling record</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="ConcreteMeter" type="xs:double">
+                                    <xs:annotation>
+                                        <xs:documentation>Concrete meter</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="ConcreteMovement" type="xs:double">
+                                    <xs:annotation>
+                                        <xs:documentation>Concrete movement</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="RPM" type="xs:double">
+                                    <xs:annotation>
+                                        <xs:documentation>Round per minute</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="AMP" type="xs:double">
+                                    <xs:annotation>
+                                        <xs:documentation>Electric ampe (with CDM tech)</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="PSR" type="xs:double">
+                                    <xs:annotation>
+                                        <xs:documentation>Concrete presure (with CMS tech)</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="MixingRecordType">
+                <xs:sequence>
+                    <xs:element name="MRID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Mixing record ids, auto increment</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MPID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Mixing plant id, look up from MIXINGPLANT.MPID</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SID" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Silo Id</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="WORKER" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Worker on mixing record, look up from EMPLOYEE.EID</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MSTART" type="xs:dateTime" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Mixing start time</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MFINISH" type="xs:dateTime" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Mixing end time</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CEMENTTYPE" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Cement to be used in this mixing, look up from CEMENTPROD.TYPE</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="CEMENTVOL" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Cement volume by kg</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="WATERVOL" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Water volume by littre</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="AddOrUpdateMixingRecordReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="MixingRecord" type="MixingRecordType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AddOrUpdateMixingRecordRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="MRID" type="xs:int" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ApproveDrillingRecordReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="ApprovalDatetime" type="xs:dateTime">
+                                    <xs:annotation>
+                                        <xs:documentation>Approval datetime</xs:documentation>
+                                    </xs:annotation>
+                                </xs:element>
+                                <xs:element name="DrillingRecords">
+                                    <xs:annotation>
+                                        <xs:documentation>List of drilling record ids to be approved</xs:documentation>
+                                    </xs:annotation>
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="DRID" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ApproveDrillingRecordRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:restriction base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="ApprovedRecordCount" type="xs:int" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:restriction>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CheckCementInSiloReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="CementRecord" type="CementRecordType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CheckCementInSiloRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="CRID" type="xs:int" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateDrillingRecordReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="DrillingRecord" type="DrillingRecordType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CreateDrillingRecordRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="DrillingRecord" minOccurs="0" maxOccurs="unbounded">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element name="DRID" type="xs:string"/>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetDrillingRecordDetailReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="PPID" type="xs:int"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="GetDrillingRecordDetailRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="DrillingRecord" type="DrillingRecordDetailType" minOccurs="0" maxOccurs="unbounded"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="LoadCementToSiloReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="CementPlan" type="CementPlanType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="LoadCementToSiloRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="CID" type="xs:int" minOccurs="0"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ModifyDrillingRecordReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="DrillingRecordDetail" type="DrillingRecordDetailType"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ModifyDrillingRecordRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes"/>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema xmlns="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rdsic.com/pileconstructionmanagement/type/common/service" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:complexType name="BaseReq">
+                <xs:sequence>
+                    <xs:element name="ClientId" type="xs:string"/>
+                    <xs:element name="RequestId" type="xs:string"/>
+                    <xs:element name="RequestDateTime" type="xs:dateTime"/>
+                    <xs:element name="Token" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="BaseRes">
+                <xs:sequence>
+                    <xs:element name="OriginalClientReq" type="ns1:BaseReq"/>
+                    <xs:element name="ResponseDateTime" type="xs:dateTime"/>
+                    <xs:element name="Status" type="xs:string"/>
+                    <xs:element name="ErrorCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="ErrorMessage" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="PileConstruction">
+        <wsdl:port name="PileConstructionEndpoint" binding="tns:PileConstructionEndpointBinding">
+            <soap:address location="http://localhost:8080/pileconstructionmanagement/service/pileconstruction"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="PieConstructionPort">
+        <wsdl:operation name="GetDrillingRecordDetail">
+            <wsdl:input message="tns:GetDrillingRecordDetailReq"/>
+            <wsdl:output message="tns:GetDrillingRecordDetailRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="AddOrUpdateMixingRecord">
+            <wsdl:input message="tns:AddOrUpdateMixingRecordReq"/>
+            <wsdl:output message="tns:AddOrUpdateMixingRecordRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="CreateDrillingRecord">
+            <wsdl:input message="tns:CreateDrillingRecordReq"/>
+            <wsdl:output message="tns:CreateDrillingRecordRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="ApproveDrillingRecord">
+            <wsdl:input message="tns:ApproveDrillingRecordReq"/>
+            <wsdl:output message="tns:ApproveDrillingRecordRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="LoadCementToSilo">
+            <wsdl:input message="tns:LoadCementToSiloReq"/>
+            <wsdl:output message="tns:LoadCementToSiloRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="ModifyDrillingRecord">
+            <wsdl:input message="tns:ModifyDrillingRecordReq"/>
+            <wsdl:output message="tns:ModifyDrillingRecordRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="CheckCementInSilo">
+            <wsdl:input message="tns:CheckCementInSiloReq"/>
+            <wsdl:output message="tns:CheckCementInSiloRes"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="PileConstructionEndpointBinding" type="tns:PieConstructionPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetDrillingRecordDetail">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/pileconstruction/GetDrillingRecordDetail"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="req"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="res"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AddOrUpdateMixingRecord">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/pileconstruction/AddOrUpdateMixingRecord"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="req"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="res"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CreateDrillingRecord">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/pileconstruction/CreateDrillingRecord"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="req"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="res"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ApproveDrillingRecord">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/pileconstruction/ApproveDrillingRecord"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="req"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="res"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="LoadCementToSilo">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/pileconstruction/LoadCementToSilo"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="req"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="res"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ModifyDrillingRecord">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/pileconstruction/ModifyDrillingRecord"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="req"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="res"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CheckCementInSilo">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/pileconstruction/CheckCementInSilo"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="req"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="res"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="GetDrillingRecordDetailReq">
+        <wsdl:part name="req" element="ns0:GetDrillingRecordDetailReq"/>
+    </wsdl:message>
+    <wsdl:message name="GetDrillingRecordDetailRes">
+        <wsdl:part name="res" element="ns0:GetDrillingRecordDetailRes"/>
+    </wsdl:message>
+    <wsdl:message name="AddOrUpdateMixingRecordReq">
+        <wsdl:part name="req" element="ns0:AddOrUpdateMixingRecordReq"/>
+    </wsdl:message>
+    <wsdl:message name="AddOrUpdateMixingRecordRes">
+        <wsdl:part name="res" element="ns0:AddOrUpdateMixingRecordRes"/>
+    </wsdl:message>
+    <wsdl:message name="CreateDrillingRecordReq">
+        <wsdl:part name="req" element="ns0:CreateDrillingRecordReq"/>
+    </wsdl:message>
+    <wsdl:message name="CreateDrillingRecordRes">
+        <wsdl:part name="res" element="ns0:CreateDrillingRecordRes"/>
+    </wsdl:message>
+    <wsdl:message name="ApproveDrillingRecordReq">
+        <wsdl:part name="req" element="ns0:ApproveDrillingRecordReq"/>
+    </wsdl:message>
+    <wsdl:message name="ApproveDrillingRecordRes">
+        <wsdl:part name="res" element="ns0:ApproveDrillingRecordRes"/>
+    </wsdl:message>
+    <wsdl:message name="LoadCementToSiloReq">
+        <wsdl:part name="req" element="ns0:LoadCementToSiloReq"/>
+    </wsdl:message>
+    <wsdl:message name="LoadCementToSiloRes">
+        <wsdl:part name="res" element="ns0:LoadCementToSiloRes"/>
+    </wsdl:message>
+    <wsdl:message name="ModifyDrillingRecordReq">
+        <wsdl:part name="req" element="ns0:ModifyDrillingRecordReq"/>
+    </wsdl:message>
+    <wsdl:message name="ModifyDrillingRecordRes">
+        <wsdl:part name="res" element="ns0:ModifyDrillingRecordRes"/>
+    </wsdl:message>
+    <wsdl:message name="CheckCementInSiloReq">
+        <wsdl:part name="req" element="ns0:CheckCementInSiloReq"/>
+    </wsdl:message>
+    <wsdl:message name="CheckCementInSiloRes">
+        <wsdl:part name="res" element="ns0:CheckCementInSiloRes"/>
+    </wsdl:message>
+</wsdl:definitions>

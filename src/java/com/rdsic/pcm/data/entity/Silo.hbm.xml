@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Silo" table="silo" catalog="pcm" optimistic-lock="version">
+        <id name="sid" type="java.lang.Integer">
+            <column name="SID" />
+            <generator class="identity" />
+        </id>
+        <property name="code" type="string">
+            <column name="CODE" length="50" not-null="true">
+                <comment>Silo code</comment>
+            </column>
+        </property>
+        <property name="name" type="string">
+            <column name="NAME">
+                <comment>Silo name</comment>
+            </column>
+        </property>
+        <property name="designvol" type="java.lang.Integer">
+            <column name="DESIGNVOL">
+                <comment>Silo design volume in kg</comment>
+            </column>
+        </property>
+        <property name="actualvol" type="java.lang.Integer">
+            <column name="ACTUALVOL">
+                <comment>Actual volume in kg</comment>
+            </column>
+        </property>
+        <property name="actualcm" type="string">
+            <column name="ACTUALCM" length="50">
+                <comment>Actual cement type in silo</comment>
+            </column>
+        </property>
+        <property name="lastupdated" type="timestamp">
+            <column name="LASTUPDATED" length="19">
+                <comment>Last updated time of actual cement volumn in this silo</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

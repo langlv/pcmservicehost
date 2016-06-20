@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 10, 2016 10:40:29 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Team" table="team" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.TeamId">
+            <key-property name="prid" type="int">
+                <column name="PRID" />
+            </key-property>
+            <key-property name="code" type="string">
+                <column name="CODE" length="50" />
+            </key-property>
+        </composite-id>
+        <property name="name" type="string">
+            <column name="NAME">
+                <comment>Name of team</comment>
+            </column>
+        </property>
+        <property name="empcnt" type="java.lang.Integer">
+            <column name="EMPCNT">
+                <comment>Number of employees assgned to this team</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

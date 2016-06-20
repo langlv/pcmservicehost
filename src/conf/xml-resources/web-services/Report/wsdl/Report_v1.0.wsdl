@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns1="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:tns="http://rdsic.com/pileconstructionmanagement/service/report" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns0="http://rdsic.com/pileconstructionmanagement/type/reporting" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="Untitled" targetNamespace="http://rdsic.com/pileconstructionmanagement/service/report">
+    <wsdl:types>
+        <xs:schema xmlns="http://rdsic.com/pileconstructionmanagement/type/reporting" xmlns:ns0="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rdsic.com/pileconstructionmanagement/type/reporting" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:import namespace="http://rdsic.com/pileconstructionmanagement/type/common/service"/>
+            <xs:complexType name="ReportDefType">
+                <xs:sequence>
+                    <xs:element name="CODE" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Operation code</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DESCRIPTION" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Description</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="ReportParamType">
+                <xs:sequence>
+                    <xs:element name="CODE" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Report code</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PARNAME" type="xs:string">
+                        <xs:annotation>
+                            <xs:documentation>Paramenter name</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PARDIR" type="xs:int">
+                        <xs:annotation>
+                            <xs:documentation>Parameter direction</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="PARTYPE" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Type of paramenter</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="FORMAT" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Value format</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ORD" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Parameter order</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="DESCRIPTION" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Description</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="DayendReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="WorkingDate" type="xs:dateTime"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="DayendRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes"/>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ExecReportReq">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseReq">
+                            <xs:sequence>
+                                <xs:element name="ReportName" type="xs:string"/>
+                                <xs:element name="Parameter" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ExecReportRes">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="ns0:BaseRes">
+                            <xs:sequence>
+                                <xs:element name="Data" type="xs:string"/>
+                            </xs:sequence>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema xmlns="http://rdsic.com/pileconstructionmanagement/type/common/service" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://rdsic.com/pileconstructionmanagement/type/common/service" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:complexType name="BaseReq">
+                <xs:sequence>
+                    <xs:element name="ClientId" type="xs:string"/>
+                    <xs:element name="RequestId" type="xs:string"/>
+                    <xs:element name="RequestDateTime" type="xs:dateTime"/>
+                    <xs:element name="Token" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="BaseRes">
+                <xs:sequence>
+                    <xs:element name="OriginalClientReq" type="ns1:BaseReq"/>
+                    <xs:element name="ResponseDateTime" type="xs:dateTime"/>
+                    <xs:element name="Status" type="xs:string"/>
+                    <xs:element name="ErrorCode" type="xs:string" minOccurs="0"/>
+                    <xs:element name="ErrorMessage" type="xs:string" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="Report">
+        <wsdl:port name="ReportingEndpoint" binding="tns:ReportingEndpointBinding">
+            <soap:address location="http://localhost:8080/pileconstructionmanagement/service/report"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="ReportingPort">
+        <wsdl:operation name="ExecReport">
+            <wsdl:documentation>Run a report.
+Input:
+    - ReportName
+    - List of parameters and values in format: par1=val1#par2=val2
+Output:
+    - The dataset in json format
+</wsdl:documentation>
+            <wsdl:input message="tns:ExecReportReq"/>
+            <wsdl:output message="tns:ExecReportRes"/>
+        </wsdl:operation>
+        <wsdl:operation name="RunDayend">
+            <wsdl:input message="tns:DayendReq"/>
+            <wsdl:output message="tns:DayendRes"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ReportingEndpointBinding" type="tns:ReportingPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="ExecReport">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/report/ExecReport"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="req"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="res"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="RunDayend">
+            <soap:operation style="document" soapAction="/pileconstructionmanagement/service/report/RunDayend"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="req"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="res"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="ExecReportReq">
+        <wsdl:part name="req" element="ns0:ExecReportReq"/>
+    </wsdl:message>
+    <wsdl:message name="ExecReportRes">
+        <wsdl:part name="res" element="ns0:ExecReportRes"/>
+    </wsdl:message>
+    <wsdl:message name="DayendReq">
+        <wsdl:part name="req" element="ns0:DayendReq"/>
+    </wsdl:message>
+    <wsdl:message name="DayendRes">
+        <wsdl:part name="res" element="ns0:DayendRes"/>
+    </wsdl:message>
+</wsdl:definitions>
