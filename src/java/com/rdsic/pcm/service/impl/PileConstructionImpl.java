@@ -123,11 +123,11 @@ public class PileConstructionImpl {
             }
 
             // calculate cement loss
-            List<Date> lstLastRec = GenericHql.INSTANCE.query("select max(Cementrecord.Rectime) from Cementrecord where sid=:sid", "sid", sid);
-            Date lastRec = lstLastRec.isEmpty() ? new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1900") : lstLastRec.get(0);
+            List<Date> lstLastRec = GenericHql.INSTANCE.query("select max(rectime) from Cementrecord where sid=:sid", "sid", sid);
+            Date lastRec = lstLastRec.isEmpty() || lstLastRec.get(0) == null ? new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1900") : lstLastRec.get(0);
 
             // calculate total cement was loaded into silo
-            List<Cementin> lstCementIn = GenericHql.INSTANCE.query("from Cementin where Rcvdate>=:lastdate and Silo=:sid", "lastdate", lastRec, "sid", sid);
+            List<Cementin> lstCementIn = GenericHql.INSTANCE.query("from Cementin where rcvdate>=:lastdate and silo=:sid", "lastdate", lastRec, "sid", sid);
             int totalCementIn = 0;
             for (Cementin cmi : lstCementIn) {
                 totalCementIn += cmi.getQuantity();

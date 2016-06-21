@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 14, 2016 9:17:59 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jun 20, 2016 9:33:46 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.rdsic.pcm.data.entity.Projectasset" table="projectasset" catalog="pcm" optimistic-lock="version">
         <id name="prid" type="int">
@@ -26,6 +26,11 @@
         <property name="dm" type="string">
             <column name="DM" length="1000">
                 <comment>List of drilling machine ids separated by comma</comment>
+            </column>
+        </property>
+        <property name="user" type="string">
+            <column name="USER" length="1000">
+                <comment>List of users to involve into project, separated by comma</comment>
             </column>
         </property>
     </class>

@@ -1,5 +1,5 @@
 package com.rdsic.pcm.data.entity;
-// Generated Jun 14, 2016 9:17:57 AM by Hibernate Tools 4.3.1
+// Generated Jun 20, 2016 9:33:45 AM by Hibernate Tools 4.3.1
 
 
 
@@ -14,6 +14,7 @@ public class Projectasset  implements java.io.Serializable {
      private String emp;
      private String mp;
      private String dm;
+     private String user;
 
     public Projectasset() {
     }
@@ -22,12 +23,13 @@ public class Projectasset  implements java.io.Serializable {
     public Projectasset(int prid) {
         this.prid = prid;
     }
-    public Projectasset(int prid, String silo, String emp, String mp, String dm) {
+    public Projectasset(int prid, String silo, String emp, String mp, String dm, String user) {
        this.prid = prid;
        this.silo = silo;
        this.emp = emp;
        this.mp = mp;
        this.dm = dm;
+       this.user = user;
     }
    
     public int getPrid() {
@@ -64,6 +66,13 @@ public class Projectasset  implements java.io.Serializable {
     
     public void setDm(String dm) {
         this.dm = dm;
+    }
+    public String getUser() {
+        return this.user;
+    }
+    
+    public void setUser(String user) {
+        this.user = user;
     }
 
 
