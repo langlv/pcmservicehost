@@ -17,6 +17,8 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -35,6 +37,8 @@ public class Util {
     private static final HashMap<String, Object> entityMarshallerLock = new HashMap();
 
     public static final DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
+
+    public static final ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     public static boolean isNullOrEmpty(String t) {
         if (t == null) {
