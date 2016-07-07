@@ -35,6 +35,10 @@ public class ProjectPileDesign {
         return ProjectPileDesignImpl.getProjectDetail(parameter);
     }
 
+    public com.rdsic.pileconstructionmanagement.type.projectpiledesign.GetProjectAssetSummaryRes getProjectAssetSummary(com.rdsic.pileconstructionmanagement.type.projectpiledesign.GetProjectAssetSummaryReq req) {
+        return ProjectPileDesignImpl.getProjectAssetSummary(req);
+    }
+
     public com.rdsic.pileconstructionmanagement.type.projectpiledesign.GetPilePlanDetailRes getProjectPilePlan(com.rdsic.pileconstructionmanagement.type.projectpiledesign.GetPilePlanDetailReq parameter) {
         return ProjectPileDesignImpl.getPilePlanDetail(parameter);
     }

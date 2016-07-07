@@ -9,13 +9,22 @@ import com.rdsic.pcm.common.Util;
 import com.rdsic.pcm.common.HibernateUtil;
 import com.rdsic.pcm.common.Constant;
 import com.rdsic.pcm.common.GenericHql;
+import com.rdsic.pcm.data.entity.Drillingmachine;
+import com.rdsic.pcm.data.entity.Employee;
+import com.rdsic.pcm.data.entity.Mixingplant;
 import com.rdsic.pcm.data.entity.Pcproject;
 import com.rdsic.pcm.data.entity.Piledesign;
 import com.rdsic.pcm.data.entity.Pileplan;
+import com.rdsic.pcm.data.entity.Projectasset;
+import com.rdsic.pcm.data.entity.Silo;
+import com.rdsic.pcm.data.entity.VUserinformation;
 import com.rdsic.pileconstructionmanagement.type.projectpiledesign.*;
+import com.rdsic.pileconstructionmanagement.type.usermanagement.user.UserSummaryType;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -57,7 +66,7 @@ public class ProjectPileDesignImpl {
             pd.setQtotal(pile.getQTOTAL());
             pd.setC(pile.getC());
             pd.setWc(pile.getWC());
-            
+
             HibernateUtil.beginTransaction();
             HibernateUtil.currentSession().save(pd);
             if (immediateCommit) {
@@ -454,6 +463,182 @@ public class ProjectPileDesignImpl {
             res.setData(detail);
 
             res.setStatus(Constant.STATUS_CODE.OK);
+        } catch (Exception e) {
+            HibernateUtil.rollback();
+            Util.handleException(e, res);
+        }
+        res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
+
+        Logger.LogRes(key, opr, res);
+        return res;
+    }
+
+    /**
+     * Implementation method for operation GetProjectAssetSummary
+     *
+     * @param req
+     * @return
+     */
+    public static GetProjectAssetSummaryRes getProjectAssetSummary(GetProjectAssetSummaryReq req) {
+        String key = UUID.randomUUID().toString();
+        String opr = "ProjectPileDesign/GetProjectAssetSummary";
+        Logger.LogReq(key, opr, req);
+
+        Date now = new Date();
+        GetProjectAssetSummaryRes res = new GetProjectAssetSummaryRes();
+        if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
+            Logger.LogRes(key, opr, res);
+            return res;
+        }
+
+        try {
+            int prid = req.getPRID();
+
+            List<Projectasset> listAss = GenericHql.INSTANCE.query("from Projectasset where prid=:prid", "prid", prid);
+            if (listAss.isEmpty()) {
+                throw new PCMException("Project id is not correct or project asset was not defined", Constant.STATUS_CODE.ERR_NO_RECORD_FOUND);
+            }
+
+            Projectasset prAs = listAss.get(0);
+            ProjectAssetSummaryType prjAsset = new ProjectAssetSummaryType();
+            String ID_SEPARATOR = ",";
+
+            // get silos
+            if (prAs.getSilo() != null) {
+                String[] siloIdListStr = prAs.getSilo().split(ID_SEPARATOR);
+                Integer[] siloIdList = new Integer[siloIdListStr.length];
+                for (int i = 0; i < siloIdListStr.length; i++) {
+                    siloIdList[i] = Integer.parseInt(siloIdListStr[i]);
+                }
+
+                List<Silo> listSilo = GenericHql.INSTANCE.queryWithParamList("from Silo where sid in (:sidlist)", "sidlist", siloIdList);
+                ProjectAssetSummaryType.Silos silos = new ProjectAssetSummaryType.Silos();
+                for (Silo sl : listSilo) {
+                    if (sl != null) {
+                        SiloType st = new SiloType();
+                        st.setSID(sl.getSid());
+                        st.setNAME(sl.getName());
+                        st.setLASTUPDATED(sl.getLastupdated() == null ? null : Util.toXmlGregorianCalendar(sl.getLastupdated()));
+                        st.setDESIGNVOL(sl.getDesignvol());
+                        st.setCODE(sl.getCode());
+                        st.setACTUALVOL(sl.getActualvol());
+                        st.setACTUALCM(sl.getActualcm());
+                        silos.getSilo().add(st);
+                    }
+                }
+                prjAsset.setSilos(silos);
+
+            }
+
+            // get employee
+            if (prAs.getEmp() != null) {
+                String[] empIdListStr = prAs.getEmp().split(ID_SEPARATOR);
+                Integer[] empIdList = new Integer[empIdListStr.length];
+                for (int i = 0; i < empIdListStr.length; i++) {
+                    empIdList[i] = Integer.parseInt(empIdListStr[i]);
+                }
+
+                List<Employee> listEmp = GenericHql.INSTANCE.queryWithParamList("from Employee where eid in (:eidlist)", "eidlist", empIdList);
+                ProjectAssetSummaryType.Employees emp = new ProjectAssetSummaryType.Employees();
+                for (Employee e : listEmp) {
+                    if (e != null) {
+                        EmployeeType et = new EmployeeType();
+                        et.setEID(e.getEid());
+                        et.setFULLNAME(e.getFullname());
+                        et.setROLE(e.getRole());
+                        et.setSHORTNAME(e.getShortname());
+                        et.setTEAM(e.getTeam());
+                        et.setUSERID(e.getUserid());
+                        emp.getEmployee().add(et);
+                    }
+                }
+
+                prjAsset.setEmployees(emp);
+            }
+
+            // get mixing plant
+            if (prAs.getMp() != null) {
+                String[] mpIdListStr = prAs.getMp().split(ID_SEPARATOR);
+                Integer[] mpIdList = new Integer[mpIdListStr.length];
+                for (int i = 0; i < mpIdListStr.length; i++) {
+                    mpIdList[i] = Integer.parseInt(mpIdListStr[i]);
+                }
+
+                List<Mixingplant> listMp = GenericHql.INSTANCE.queryWithParamList("from Mixingplant where mpid in (:mplist)", "mplist", mpIdList);
+                ProjectAssetSummaryType.MixingPlants mixingPlant = new ProjectAssetSummaryType.MixingPlants();
+                for (Mixingplant mp : listMp) {
+                    if (mp != null) {
+                        MixingPlantType mptype = new MixingPlantType();
+                        mptype.setCODE(mp.getCode());
+                        mptype.setMPID(mp.getMpid());
+                        mptype.setNAME(mp.getName());
+                        mptype.setSID1(mp.getSid1());
+                        mptype.setSID2(mp.getSid2());
+                        mptype.setSID3(mp.getSid3());
+                        mptype.setSID4(mp.getSid4());
+                        mptype.setSID5(mp.getSid5());
+                        mixingPlant.getMixingPlant().add(mptype);
+                    }
+                }
+
+                prjAsset.setMixingPlants(mixingPlant);
+            }
+
+            // get driling machine
+            if (prAs.getDm() != null) {
+                String[] dmIdListStr = prAs.getDm().split(ID_SEPARATOR);
+                Integer[] dmIdList = new Integer[dmIdListStr.length];
+                for (int i = 0; i < dmIdListStr.length; i++) {
+                    dmIdList[i] = Integer.parseInt(dmIdListStr[i]);
+                }
+
+                List<Drillingmachine> listDm = GenericHql.INSTANCE.queryWithParamList("from Drillingmachine where dmid in (:dmidlist)", "dmidlist", dmIdList);
+                ProjectAssetSummaryType.DrillingMachines drillingMachine = new ProjectAssetSummaryType.DrillingMachines();
+                for (Drillingmachine dm : listDm) {
+                    if (dm != null) {
+                        DrillingMachineType d = new DrillingMachineType();
+                        d.setALIM(dm.getAlim());
+                        d.setCODE(dm.getCode());
+                        d.setCUTWING(dm.getCutwing());
+                        d.setDMID(dm.getDmid());
+                        d.setDRIVER1(dm.getDriver1());
+                        d.setDRIVER2(dm.getDriver2());
+                        d.setFMID1(dm.getFmid1());
+                        d.setFMID2(dm.getFmid2());
+                        d.setMPID(dm.getMpid());
+                        d.setNAME(dm.getName());
+                        d.setVLIM(dm.getVlim());
+
+                        drillingMachine.getDrillingMachine().add(d);
+                    }
+                }
+                prjAsset.setDrillingMachines(drillingMachine);
+            }
+
+            // get users
+            if (prAs.getUser() != null) {
+                String[] userIdList = prAs.getUser().split(ID_SEPARATOR);
+                List<VUserinformation> listUser = GenericHql.INSTANCE.queryWithParamList("from VUserinformation where userid in (:useridlist)", "useridlist", userIdList);
+                ProjectAssetSummaryType.Users users = new ProjectAssetSummaryType.Users();
+                for (VUserinformation user : listUser) {
+                    if (user != null) {
+                        UserSummaryType us = new UserSummaryType();
+                        us.setUserID(user.getId().getUserId());
+                        us.setDateCreate(Util.toXmlGregorianCalendar(user.getId().getDateCreate()));
+                        us.setDateExpire(Util.toXmlGregorianCalendar(user.getId().getDateExpire()));
+                        us.setFirstName(user.getId().getFirstName());
+                        us.setLastName(user.getId().getLastName());
+                        us.setUserClass(user.getId().getUserClass());
+
+                        users.getUser().add(us);
+                    }
+                }
+                prjAsset.setUsers(users);
+            }
+
+            res.setProjectAsset(prjAsset);
+            res.setStatus(Constant.STATUS_CODE.OK);
+
         } catch (Exception e) {
             HibernateUtil.rollback();
             Util.handleException(e, res);

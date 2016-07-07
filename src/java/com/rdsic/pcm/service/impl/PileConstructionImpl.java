@@ -146,7 +146,7 @@ public class PileConstructionImpl {
             cr.setCurcm(cement.getCURCM());
             cr.setCurvol(cement.getCURVOL());
             cr.setNote(cement.getNOTE());
-            cr.setRectime(cement.getRECTIME() == null ? null : Util.toDate(cement.getRECTIME()));
+            cr.setRectime(cement.getRECTIME() == null ? now : Util.toDate(cement.getRECTIME()));
             cr.setSid(cement.getSID());
             cr.setSumcementin(totalCementIn);
             cr.setSumcementout(totalCementOut);

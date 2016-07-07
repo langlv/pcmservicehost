@@ -43,6 +43,23 @@ public class GenericHql<T extends Serializable> {
     }
 
     /**
+     * Execute a "SELECT ... FROM ... WHRE parm_name IN (value_list)" query
+     *
+     * @param hql
+     * @param param
+     * @param paramValues
+     * @return
+     */
+    public List<T> queryWithParamList(String hql, String param, Object[] paramValues) {
+        Query q = HibernateUtil.currentSession().createQuery(hql);
+        HibernateUtil.currentSession().setCacheMode(CacheMode.IGNORE);
+        if (param != null && paramValues != null) {
+            q.setParameterList(param, paramValues);
+        }
+        return q.list();
+    }
+
+    /**
      * Execute a native SQL query
      *
      * @param sql The SQL select query
