@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 20, 2016 9:33:46 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jul 9, 2016 9:47:04 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.rdsic.pcm.data.entity.Pileplan" table="pileplan" catalog="pcm" optimistic-lock="version">
         <id name="ppid" type="java.lang.Integer">
@@ -21,6 +21,11 @@
         <property name="code" type="string">
             <column name="CODE" length="50" not-null="true">
                 <comment>Pile design code</comment>
+            </column>
+        </property>
+        <property name="ppname" type="string">
+            <column name="PPNAME">
+                <comment>Name of pile plan</comment>
             </column>
         </property>
         <property name="x" type="java.lang.Double">

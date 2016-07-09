@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 9, 2016 9:47:04 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Dmissuetrack" table="dmissuetrack" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.DmissuetrackId">
+            <key-property name="dmid" type="string">
+                <column name="DMID" length="50" />
+            </key-property>
+            <key-property name="issuebegin" type="timestamp">
+                <column name="ISSUEBEGIN" length="19" />
+            </key-property>
+        </composite-id>
+        <property name="issueend" type="timestamp">
+            <column name="ISSUEEND" length="19">
+                <comment>When issue is fixed</comment>
+            </column>
+        </property>
+        <property name="issuetype" type="string">
+            <column name="ISSUETYPE" length="50">
+                <comment>Type of issue, lookup from CODEDEF</comment>
+            </column>
+        </property>
+        <property name="reason" type="string">
+            <column name="REASON" length="1000">
+                <comment>Reason of issue</comment>
+            </column>
+        </property>
+        <property name="comment" type="string">
+            <column name="COMMENT" length="1000">
+                <comment>Comment on issue</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

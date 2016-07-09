@@ -1,5 +1,5 @@
 package com.rdsic.pcm.data.entity;
-// Generated Jun 20, 2016 9:33:45 AM by Hibernate Tools 4.3.1
+// Generated Jul 9, 2016 9:47:03 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -14,6 +14,7 @@ public class Pileplan  implements java.io.Serializable {
      private int prid;
      private Integer sbid;
      private String code;
+     private String ppname;
      private Double x;
      private Double y;
      private Double rx;
@@ -56,10 +57,11 @@ public class Pileplan  implements java.io.Serializable {
         this.code = code;
         this.status = status;
     }
-    public Pileplan(int prid, Integer sbid, String code, Double x, Double y, Double rx, Double ry, Double vertically, Integer dmid, Integer driver, String team, Integer mpid, Integer sid, String cementtype, Date start, Date end, Date actstart, Date actend, Double rel0, Double rel1, Double rel2, Double rlp, Double rld, Double dspdmax, Double dspdavg, Double uspdmax, Double uspdavg, Double nmin, Double nav, Double rq, Double fq, Double fn, Double fl, Double fs, String status) {
+    public Pileplan(int prid, Integer sbid, String code, String ppname, Double x, Double y, Double rx, Double ry, Double vertically, Integer dmid, Integer driver, String team, Integer mpid, Integer sid, String cementtype, Date start, Date end, Date actstart, Date actend, Double rel0, Double rel1, Double rel2, Double rlp, Double rld, Double dspdmax, Double dspdavg, Double uspdmax, Double uspdavg, Double nmin, Double nav, Double rq, Double fq, Double fn, Double fl, Double fs, String status) {
        this.prid = prid;
        this.sbid = sbid;
        this.code = code;
+       this.ppname = ppname;
        this.x = x;
        this.y = y;
        this.rx = rx;
@@ -121,6 +123,13 @@ public class Pileplan  implements java.io.Serializable {
     
     public void setCode(String code) {
         this.code = code;
+    }
+    public String getPpname() {
+        return this.ppname;
+    }
+    
+    public void setPpname(String ppname) {
+        this.ppname = ppname;
     }
     public Double getX() {
         return this.x;

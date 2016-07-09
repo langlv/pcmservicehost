@@ -352,6 +352,7 @@ public class ProjectPileDesignImpl {
             pp.setMpid(ppt.getMPID());
             pp.setNav(ppt.getNAV());
             pp.setNmin(ppt.getNMIN());
+            pp.setPpname(ppt.getPPNAME());
             pp.setCode(pcode);
             pp.setPrid(prid);
             pp.setRel0(ppt.getREL0());
@@ -457,6 +458,7 @@ public class ProjectPileDesignImpl {
                 ppt.setVERTICALLY(pp.getVertically());
                 ppt.setX(pp.getX());
                 ppt.setY(pp.getY());
+                ppt.setPPNAME(pp.getPpname());
 
                 detail.getPilePlan().add(ppt);
             }

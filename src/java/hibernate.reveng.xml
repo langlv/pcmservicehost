@@ -2,30 +2,35 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
     <schema-selection match-catalog="pcm"/>
-    <table-filter match-name="dlog"/>
+    <table-filter match-name="codedef"/>
+    <table-filter match-name="user"/>
     <table-filter match-name="userclass"/>
+    <table-filter match-name="usertoken"/>
+    <table-filter match-name="function"/>
+    <table-filter match-name="permission"/>
+    <table-filter match-name="dlog"/>
     <table-filter match-name="oprdef"/>
     <table-filter match-name="oprtag"/>
-    <table-filter match-name="projectasset"/>
-    <table-filter match-name="user"/>
+    <table-filter match-name="reportdef"/>
+    <table-filter match-name="reportparam"/>
+    <table-filter match-name="pcproject"/>
     <table-filter match-name="employee"/>
-    <table-filter match-name="cementin"/>
-    <table-filter match-name="cementprod"/>
-    <table-filter match-name="drlrecmemo"/>
-    <table-filter match-name="usertoken"/>
-    <table-filter match-name="permission"/>
-    <table-filter match-name="pileplan"/>
-    <table-filter match-name="piledesign"/>
-    <table-filter match-name="function"/>
+    <table-filter match-name="team"/>
     <table-filter match-name="section"/>
     <table-filter match-name="silo"/>
-    <table-filter match-name="drillingmachine"/>
-    <table-filter match-name="pcproject"/>
-    <table-filter match-name="codedef"/>
-    <table-filter match-name="cementrecord"/>
     <table-filter match-name="mixingplant"/>
+    <table-filter match-name="drillingmachine"/>
+    <table-filter match-name="projectasset"/>
+    <table-filter match-name="cementprod"/>
+    <table-filter match-name="cementin"/>
+    <table-filter match-name="piledesign"/>
+    <table-filter match-name="pileplan"/>
     <table-filter match-name="mixingrecord"/>
+    <table-filter match-name="cementrecord"/>
     <table-filter match-name="drlrecmast"/>
+    <table-filter match-name="drlrecmemo"/>
+    <table-filter match-name="dmissuetrack"/>
+
     
     <table-filter match-name="v_userinformation"/>
     <table-filter match-name="v_userpermission"/>
