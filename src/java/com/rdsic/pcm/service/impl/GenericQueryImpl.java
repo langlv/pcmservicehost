@@ -151,14 +151,14 @@ public class GenericQueryImpl {
                     }
                 }
             }
-            String sql = req.getQuery().getSQL().trim().toLowerCase();
+            String sql = req.getQuery().getSQL().trim();
+            String action = sql.substring(0, sql.indexOf(" ")).toLowerCase();
 
             // quick validate the query
-            if (!(sql.startsWith("insert") || sql.startsWith("update") || sql.startsWith("delete"))) {
+            if (!("insert".equalsIgnoreCase(action) || "update".equalsIgnoreCase(action) || "delete".equalsIgnoreCase(action))) {
                 throw new SQLException("Invalid SQL string. The input SQL must be started with insert/update/delete");
             }
 
-            String action = sql.substring(0, sql.indexOf(" "));
             int recNum = GenericHql.INSTANCE.updateSQL(sql, true, params.toArray());
 
             AddOrUpdateQueryResponseType result = new AddOrUpdateQueryResponseType();
