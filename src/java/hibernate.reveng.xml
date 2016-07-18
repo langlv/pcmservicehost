@@ -30,6 +30,7 @@
     <table-filter match-name="drlrecmast"/>
     <table-filter match-name="drlrecmemo"/>
     <table-filter match-name="dmissuetrack"/>
+    <table-filter match-name="drlmonitor"/>
 
     
     <table-filter match-name="v_userinformation"/>

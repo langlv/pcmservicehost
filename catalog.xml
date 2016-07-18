@@ -15,6 +15,6 @@
     <system systemId="file:/Z:/PilesContructionManagement/03.design/ConcreteWSDL/PileConstruction_v1.0.wsdl" uri="src/conf/xml-resources/web-services/PileConstruction/wsdl/PileConstruction_v1.0.wsdl"/>
     <system systemId="file:/Z:/PilesContructionManagement/03.design/ConcreteWSDL/ProjectPileDesign_v1.0.wsdl" uri="src/conf/xml-resources/web-services/ProjectPileDesign/wsdl/ProjectPileDesign_v1.0.wsdl"/>
     <system systemId="file:/D:/Work/OTHER/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/Report_v1.0.wsdl" uri="src/conf/xml-resources/web-services/Report/wsdl/Report_v1.0.wsdl"/>
-    <system systemId="file:/D:/Work/OTHER/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/PileConstruction_v1.0.wsdl" uri="src/conf/xml-resources/web-services/PileConstruction/wsdl/PileConstruction_v1.0.wsdl"/>
     <system systemId="file:/D:/Work/OTHER/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/ProjectPileDesign_v1.0.wsdl" uri="src/conf/xml-resources/web-services/ProjectPileDesign/wsdl/ProjectPileDesign_v1.0.wsdl"/>
+    <system systemId="file:/D:/Work/OTHER/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/PileConstruction_v1.0.wsdl" uri="src/conf/xml-resources/web-services/PileConstruction/wsdl/PileConstruction_v1.0.wsdl"/>
 </catalog>

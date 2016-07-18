@@ -16,6 +16,9 @@ import com.rdsic.pcm.common.Util;
 import com.rdsic.pcm.common.HibernateUtil;
 import com.rdsic.pcm.common.Constant;
 import com.rdsic.pcm.common.GenericHql;
+import com.rdsic.pcm.data.entity.Drlmonitor;
+import com.rdsic.pcm.data.entity.DrlmonitorId;
+import com.rdsic.pcm.data.entity.Piledesign;
 import com.rdsic.pcm.data.entity.User;
 import com.rdsic.pileconstructionmanagement.type.pileconstruction.*;
 import java.text.SimpleDateFormat;
@@ -258,6 +261,13 @@ public class PileConstructionImpl {
                     }
                     Pileplan drlPlan = listPP.get(0);
 
+                    // validate pile design
+                    List<Piledesign> listPD = GenericHql.INSTANCE.query("from Piledesign where code=:code", "code", drlPlan.getCode());
+                    if (listPD.isEmpty()) {
+                        throw new PCMException(Constant.STATUS_CODE.ERR_INVALID_INPUT_DATA, "Pile design was not found with given drilling plan id: " + PPID);
+                    }
+                    Piledesign pileDesign = listPD.get(0);
+
                     // validate drilling machine information
                     List<Drillingmachine> listMachine = GenericHql.INSTANCE.query("from Drillingmachine where dmid=:id ", "id", drtype.getDMID());
                     if (listMachine.isEmpty()) {
@@ -305,6 +315,76 @@ public class PileConstructionImpl {
                     CreateDrillingRecordRes.DrillingRecord dr = new CreateDrillingRecordRes.DrillingRecord();
                     dr.setDRID(drid);
                     res.getDrillingRecord().add(dr);
+
+                    // TODO: perform the monitoring alert per drilling record
+                    // check SumRdQ
+                    double SumRdQ = currDrlrec.getRdqtotal();
+                    double QLim = pileDesign.getQlim();
+
+                    if (SumRdQ > QLim) {
+                        DrlmonitorId dmId = new DrlmonitorId(drid, PPID, "SUMQ");
+                        Drlmonitor dm = new Drlmonitor(dmId, now);
+                        dm.setActval(SumRdQ);
+                        dm.setLimitval(QLim);
+                        dm.setStatus("A");
+
+                        HibernateUtil.currentSession().save(dm);
+
+                        DrillingAlertType alert = new DrillingAlertType();
+                        alert.setDRID(drid);
+                        alert.setDRILLTIME(Util.toXmlGregorianCalendar(now));
+                        alert.setMTYPE("SUMQ");
+                        alert.setACTVAL(SumRdQ);
+                        alert.setLIMITVAL(QLim);
+                        alert.setPPID(PPID);
+                        alert.setSTATUS("A");
+
+                        res.getDrillingAlert().add(alert);
+                    }
+
+                    // check A limit of drilling machine
+                    if (drlData.getAMP() > machine.getAlim()) {
+                        DrlmonitorId dmId = new DrlmonitorId(drid, PPID, "ALIM");
+                        Drlmonitor dm = new Drlmonitor(dmId, now);
+                        dm.setActval(drlData.getAMP());
+                        dm.setLimitval(machine.getAlim());
+                        dm.setStatus("A");
+
+                        HibernateUtil.currentSession().save(dm);
+
+                        DrillingAlertType alert = new DrillingAlertType();
+                        alert.setDRID(drid);
+                        alert.setDRILLTIME(Util.toXmlGregorianCalendar(now));
+                        alert.setMTYPE("ALIM");
+                        alert.setACTVAL(drlData.getAMP());
+                        alert.setLIMITVAL(machine.getAlim());
+                        alert.setPPID(PPID);
+                        alert.setSTATUS("A");
+
+                        res.getDrillingAlert().add(alert);
+                    }
+
+                    // check drilling speed limit
+                    if (currDrlrec.getDrillmeter() > machine.getVlim()) {
+                        DrlmonitorId dmId = new DrlmonitorId(drid, PPID, "VLIM");
+                        Drlmonitor dm = new Drlmonitor(dmId, now);
+                        dm.setActval(currDrlrec.getDrillmeter());
+                        dm.setLimitval(machine.getVlim());
+                        dm.setStatus("A");
+
+                        HibernateUtil.currentSession().save(dm);
+
+                        DrillingAlertType alert = new DrillingAlertType();
+                        alert.setDRID(drid);
+                        alert.setDRILLTIME(Util.toXmlGregorianCalendar(now));
+                        alert.setMTYPE("VLIM");
+                        alert.setACTVAL(currDrlrec.getDrillmeter());
+                        alert.setLIMITVAL(machine.getVlim());
+                        alert.setPPID(PPID);
+                        alert.setSTATUS("A");
+
+                        res.getDrillingAlert().add(alert);
+                    }
                 }
 
                 HibernateUtil.commit();

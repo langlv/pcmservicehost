@@ -1,5 +1,5 @@
 package com.rdsic.pcm.data.entity;
-// Generated Jul 9, 2016 9:47:03 AM by Hibernate Tools 4.3.1
+// Generated Jul 18, 2016 2:28:00 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;

@@ -1,5 +1,5 @@
 package com.rdsic.pcm.data.entity;
-// Generated Jul 9, 2016 9:47:03 AM by Hibernate Tools 4.3.1
+// Generated Jul 18, 2016 2:28:00 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -10,17 +10,26 @@ import java.util.Date;
 public class DmissuetrackId  implements java.io.Serializable {
 
 
+     private int prid;
      private String dmid;
      private Date issuebegin;
 
     public DmissuetrackId() {
     }
 
-    public DmissuetrackId(String dmid, Date issuebegin) {
+    public DmissuetrackId(int prid, String dmid, Date issuebegin) {
+       this.prid = prid;
        this.dmid = dmid;
        this.issuebegin = issuebegin;
     }
    
+    public int getPrid() {
+        return this.prid;
+    }
+    
+    public void setPrid(int prid) {
+        this.prid = prid;
+    }
     public String getDmid() {
         return this.dmid;
     }
@@ -43,13 +52,15 @@ public class DmissuetrackId  implements java.io.Serializable {
 		 if ( !(other instanceof DmissuetrackId) ) return false;
 		 DmissuetrackId castOther = ( DmissuetrackId ) other; 
          
-		 return ( (this.getDmid()==castOther.getDmid()) || ( this.getDmid()!=null && castOther.getDmid()!=null && this.getDmid().equals(castOther.getDmid()) ) )
+		 return (this.getPrid()==castOther.getPrid())
+ && ( (this.getDmid()==castOther.getDmid()) || ( this.getDmid()!=null && castOther.getDmid()!=null && this.getDmid().equals(castOther.getDmid()) ) )
  && ( (this.getIssuebegin()==castOther.getIssuebegin()) || ( this.getIssuebegin()!=null && castOther.getIssuebegin()!=null && this.getIssuebegin().equals(castOther.getIssuebegin()) ) );
    }
    
    public int hashCode() {
          int result = 17;
          
+         result = 37 * result + this.getPrid();
          result = 37 * result + ( getDmid() == null ? 0 : this.getDmid().hashCode() );
          result = 37 * result + ( getIssuebegin() == null ? 0 : this.getIssuebegin().hashCode() );
          return result;
