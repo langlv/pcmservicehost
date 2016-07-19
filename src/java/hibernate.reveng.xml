@@ -36,5 +36,6 @@
     <table-filter match-name="v_userinformation"/>
     <table-filter match-name="v_userpermission"/>
     <table-filter match-name="v_useractive"/>
+    <table-filter match-name="v_drlmachineinfo"/>
 
 </hibernate-reverse-engineering>

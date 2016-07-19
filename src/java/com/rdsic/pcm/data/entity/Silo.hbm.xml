@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jul 18, 2016 2:28:01 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jul 19, 2016 4:32:11 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.rdsic.pcm.data.entity.Silo" table="silo" catalog="pcm" optimistic-lock="version">
         <id name="sid" type="java.lang.Integer">

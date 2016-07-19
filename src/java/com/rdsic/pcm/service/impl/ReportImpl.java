@@ -27,6 +27,8 @@ import org.json.JSONObject;
  */
 public class ReportImpl {
 
+    private static final String PARAM_SEPARATOR = ",";
+
     /**
      * Implementation method for operation RunDayend
      *
@@ -123,7 +125,7 @@ public class ReportImpl {
             params.put(p.getId().getParname(), ""); // need to provide default value ?
         }
 
-        for (String par : paramString.split("#")) {
+        for (String par : paramString.split(PARAM_SEPARATOR)) {
             String[] p = par.split("=");
             if (p.length < 2) {
                 throw new PCMException("The input parameter was not in correct format: " + par, Constant.STATUS_CODE.ERR_INVALID_INPUT_DATA);
@@ -158,7 +160,7 @@ public class ReportImpl {
         }
 
         for (String k : params.keySet()) {
-            resParam += k + "=" + params.get(k) + "#";
+            resParam += k + "=" + params.get(k) + PARAM_SEPARATOR;
         }
 
         return resParam.substring(0, resParam.length() - 1);

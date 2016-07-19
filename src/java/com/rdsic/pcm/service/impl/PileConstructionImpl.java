@@ -20,6 +20,7 @@ import com.rdsic.pcm.data.entity.Drlmonitor;
 import com.rdsic.pcm.data.entity.DrlmonitorId;
 import com.rdsic.pcm.data.entity.Piledesign;
 import com.rdsic.pcm.data.entity.User;
+import com.rdsic.pcm.data.entity.VDrlmachineinfo;
 import com.rdsic.pileconstructionmanagement.type.pileconstruction.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -269,12 +270,12 @@ public class PileConstructionImpl {
                     Piledesign pileDesign = listPD.get(0);
 
                     // validate drilling machine information
-                    List<Drillingmachine> listMachine = GenericHql.INSTANCE.query("from Drillingmachine where dmid=:id ", "id", drtype.getDMID());
+                    List<VDrlmachineinfo> listMachine = GenericHql.INSTANCE.query("from VDrlmachineinfo where dmid=:id ", "id", drtype.getDMID());
                     if (listMachine.isEmpty()) {
                         throw new PCMException(Constant.STATUS_CODE.ERR_INVALID_INPUT_DATA, "Drilling machine id is not valid: " + drtype.getDMID());
                     }
-                    Drillingmachine machine = listMachine.get(0);
-                    if (machine.getCutwing() <= 0) {
+                    VDrlmachineinfo machine = listMachine.get(0);
+                    if (machine.getId().getCutwing() <= 0) {
                         throw new PCMException(Constant.STATUS_CODE.ERR_INVALID_CONFIG_DATA, "Drilling machine information is not correct: CUTWING");
                     }
 
@@ -289,6 +290,11 @@ public class PileConstructionImpl {
 
                     currDrlrec.setId(new DrlrecmemoId(drid, Util.toDate(drtype.getRecordTime())));
                     currDrlrec.setPpid(PPID);
+                    currDrlrec.setPrid(drlPlan.getPrid());
+                    currDrlrec.setDriver(machine.getId().getDriverid());
+                    currDrlrec.setFmid(machine.getId().getDmflowmeterid());
+                    currDrlrec.setMpid(machine.getId().getMpid());
+                    currDrlrec.setSid(machine.getId().getSid());
                     currDrlrec.setAmp(drlData.getAMP());
                     currDrlrec.setDeepmeter(drlData.getDeepMeter());
                     currDrlrec.setDirection(isFirstRec ? 1 : lastDrlrec.getDeepmeter() <= drlData.getDeepMeter() ? 1 : 0);
@@ -296,12 +302,11 @@ public class PileConstructionImpl {
                     currDrlrec.setDrillmeter(drlData.getDeepMovement());
                     currDrlrec.setEmptydrill(drlData.getConcreteMovement() == 0);
                     currDrlrec.setEndrec(false);  // need to check
-                    currDrlrec.setNdn(drlData.getDeepMovement() == 0 ? 0 : drlData.getRPM() / (drlData.getDeepMovement() * machine.getCutwing()));
-                    currDrlrec.setPrid(drlPlan.getPrid());
+                    currDrlrec.setNdn(drlData.getDeepMovement() == 0 ? 0 : drlData.getRPM() / (drlData.getDeepMovement() * machine.getId().getCutwing()));
                     currDrlrec.setPsr(drlData.getPSR());
                     currDrlrec.setRdq(drlData.getDeepMovement() == 0 ? 0 : drlData.getConcreteMovement() / drlData.getDeepMovement());
                     currDrlrec.setRdqtotal(isFirstRec || drlData.getDeepMovement() == 0 ? 0 : (drlData.getConcreteMeter() - lastDrlrec.getRqtotal()) / drlData.getDeepMovement());
-                    currDrlrec.setRecby(machine.getDriver1());
+                    currDrlrec.setRecby(machine.getId().getDriverid());
                     currDrlrec.setRectime(Util.toDate(drtype.getRecordTime()));
                     currDrlrec.setRotatemeter(drlData.getRPM());
                     currDrlrec.setRq(drlData.getConcreteMovement());
@@ -343,11 +348,11 @@ public class PileConstructionImpl {
                     }
 
                     // check A limit of drilling machine
-                    if (drlData.getAMP() > machine.getAlim()) {
+                    if (drlData.getAMP() > machine.getId().getAlim()) {
                         DrlmonitorId dmId = new DrlmonitorId(drid, PPID, "ALIM");
                         Drlmonitor dm = new Drlmonitor(dmId, now);
                         dm.setActval(drlData.getAMP());
-                        dm.setLimitval(machine.getAlim());
+                        dm.setLimitval(machine.getId().getAlim());
                         dm.setStatus("A");
 
                         HibernateUtil.currentSession().save(dm);
@@ -357,7 +362,7 @@ public class PileConstructionImpl {
                         alert.setDRILLTIME(Util.toXmlGregorianCalendar(now));
                         alert.setMTYPE("ALIM");
                         alert.setACTVAL(drlData.getAMP());
-                        alert.setLIMITVAL(machine.getAlim());
+                        alert.setLIMITVAL(machine.getId().getAlim());
                         alert.setPPID(PPID);
                         alert.setSTATUS("A");
 
@@ -365,11 +370,11 @@ public class PileConstructionImpl {
                     }
 
                     // check drilling speed limit
-                    if (currDrlrec.getDrillmeter() > machine.getVlim()) {
+                    if (currDrlrec.getDrillmeter() > machine.getId().getVlim()) {
                         DrlmonitorId dmId = new DrlmonitorId(drid, PPID, "VLIM");
                         Drlmonitor dm = new Drlmonitor(dmId, now);
                         dm.setActval(currDrlrec.getDrillmeter());
-                        dm.setLimitval(machine.getVlim());
+                        dm.setLimitval(machine.getId().getVlim());
                         dm.setStatus("A");
 
                         HibernateUtil.currentSession().save(dm);
@@ -379,7 +384,7 @@ public class PileConstructionImpl {
                         alert.setDRILLTIME(Util.toXmlGregorianCalendar(now));
                         alert.setMTYPE("VLIM");
                         alert.setACTVAL(currDrlrec.getDrillmeter());
-                        alert.setLIMITVAL(machine.getVlim());
+                        alert.setLIMITVAL(machine.getId().getVlim());
                         alert.setPPID(PPID);
                         alert.setSTATUS("A");
 
@@ -424,7 +429,11 @@ public class PileConstructionImpl {
             List<Drlrecmemo> listDrlrec = GenericHql.INSTANCE.query("from Drlrecmemo where ppid=:id order by drilltime desc", "id", ppid);
             for (Drlrecmemo drlrec : listDrlrec) {
                 DrillingRecordDetailType drldetail = new DrillingRecordDetailType();
-
+                
+                drldetail.setDRIVER(drlrec.getDriver());
+                drldetail.setFMID(drlrec.getFmid());
+                drldetail.setMPID(drlrec.getMpid());
+                drldetail.setSID(drlrec.getSid());
                 drldetail.setAMP(drlrec.getAmp());
                 drldetail.setAPPBY(drlrec.getAppby());
                 drldetail.setAPPSTS(drlrec.getAppsts());

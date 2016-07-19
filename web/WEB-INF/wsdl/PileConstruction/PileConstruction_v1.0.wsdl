@@ -193,6 +193,26 @@
                             <xs:documentation>Drilling machine id</xs:documentation>
                         </xs:annotation>
                     </xs:element>
+                    <xs:element name="DRIVER" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Driver id who work on the drilling machine</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="FMID" type="xs:string" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Flow meter id of drilling machine</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="MPID" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Mixing plant id from which the machine loads concrete</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element name="SID" type="xs:int" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Silo Id from which the mixing plant loads cement</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
                     <xs:element name="DRILLTIME" type="xs:dateTime">
                         <xs:annotation>
                             <xs:documentation>Current drilling time</xs:documentation>
@@ -280,7 +300,7 @@
                     </xs:element>
                     <xs:element name="APPBY" type="xs:string" minOccurs="0">
                         <xs:annotation>
-                            <xs:documentation>Record approver, look up from EMPLOYEE.EID</xs:documentation>
+                            <xs:documentation>Record approver, look up from USER.USERID</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element name="APPTIME" type="xs:dateTime" minOccurs="0">
