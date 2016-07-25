@@ -5,11 +5,11 @@
  */
 package com.rdsic.pcm.service.impl;
 
+import com.rdsic.pcm.common.Configuration;
 import com.rdsic.pcm.data.entity.Mixingrecord;
 import com.rdsic.pcm.data.entity.Drlrecmemo;
 import com.rdsic.pcm.data.entity.Cementrecord;
 import com.rdsic.pcm.data.entity.Cementin;
-import com.rdsic.pcm.data.entity.Drillingmachine;
 import com.rdsic.pcm.data.entity.Pileplan;
 import com.rdsic.pcm.data.entity.DrlrecmemoId;
 import com.rdsic.pcm.common.Util;
@@ -24,14 +24,22 @@ import com.rdsic.pcm.data.entity.VDrlmachineinfo;
 import com.rdsic.pileconstructionmanagement.type.pileconstruction.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 /**
  *
  * @author langl
  */
 public class PileConstructionImpl {
+
+    public static final Logger logger = Logger.getLogger(PileConstructionImpl.class);
 
     /**
      * Implementation method for operation LoadCementToSilo
@@ -42,12 +50,12 @@ public class PileConstructionImpl {
     public static LoadCementToSiloRes loadCementToSilo(LoadCementToSiloReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "PileConstruction/LoadCementToSilo";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         LoadCementToSiloRes res = new LoadCementToSiloRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -89,7 +97,7 @@ public class PileConstructionImpl {
             Util.handleException(e, res);
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -102,12 +110,12 @@ public class PileConstructionImpl {
     public static CheckCementInSiloRes checkCementInSilo(CheckCementInSiloReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "PileConstruction/CheckCementInSilo";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         CheckCementInSiloRes res = new CheckCementInSiloRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -168,7 +176,7 @@ public class PileConstructionImpl {
             Util.handleException(e, res);
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -181,12 +189,12 @@ public class PileConstructionImpl {
     public static AddOrUpdateMixingRecordRes addOrUpdateMixingRecord(AddOrUpdateMixingRecordReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "PileConstruction/AddOrUpdateMixingRecord";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         AddOrUpdateMixingRecordRes res = new AddOrUpdateMixingRecordRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -224,7 +232,7 @@ public class PileConstructionImpl {
             Util.handleException(e, res);
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -237,12 +245,12 @@ public class PileConstructionImpl {
     public static CreateDrillingRecordRes createDrillingRecord(CreateDrillingRecordReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "PileConstruction/CreateDrillingRecord";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         CreateDrillingRecordRes res = new CreateDrillingRecordRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -270,12 +278,16 @@ public class PileConstructionImpl {
                     Piledesign pileDesign = listPD.get(0);
 
                     // validate drilling machine information
-                    List<VDrlmachineinfo> listMachine = GenericHql.INSTANCE.query("from VDrlmachineinfo where dmid=:id ", "id", drtype.getDMID());
+                    List<HashMap<String, Object>> listMachine = GenericHql.INSTANCE.querySQL("select * from v_drlmachineinfo where dmid=:dmid",
+                            Configuration.getInt(Constant.CONFIG_KEY.PCM_QUERY_MAX_ROW),
+                            "dmid",
+                            drtype.getDMID());
                     if (listMachine.isEmpty()) {
                         throw new PCMException(Constant.STATUS_CODE.ERR_INVALID_INPUT_DATA, "Drilling machine id is not valid: " + drtype.getDMID());
                     }
-                    VDrlmachineinfo machine = listMachine.get(0);
-                    if (machine.getId().getCutwing() <= 0) {
+                    HashMap<String, Object> machineInfo = listMachine.get(0);
+
+                    if (Util.getInt(machineInfo.get("cutwing")) <= 0) {
                         throw new PCMException(Constant.STATUS_CODE.ERR_INVALID_CONFIG_DATA, "Drilling machine information is not correct: CUTWING");
                     }
 
@@ -291,10 +303,10 @@ public class PileConstructionImpl {
                     currDrlrec.setId(new DrlrecmemoId(drid, Util.toDate(drtype.getRecordTime())));
                     currDrlrec.setPpid(PPID);
                     currDrlrec.setPrid(drlPlan.getPrid());
-                    currDrlrec.setDriver(machine.getId().getDriverid());
-                    currDrlrec.setFmid(machine.getId().getDmflowmeterid());
-                    currDrlrec.setMpid(machine.getId().getMpid());
-                    currDrlrec.setSid(machine.getId().getSid());
+                    currDrlrec.setDriver(Util.getInt(machineInfo.get("driverid")));//   machineInfo.getId().getDriverid());
+                    currDrlrec.setFmid(String.valueOf(machineInfo.get("dmflowmeterid")));
+                    currDrlrec.setMpid(Util.getInt(machineInfo.get("mpid")));
+                    currDrlrec.setSid(Util.getInt(machineInfo.get("sid")));
                     currDrlrec.setAmp(drlData.getAMP());
                     currDrlrec.setDeepmeter(drlData.getDeepMeter());
                     currDrlrec.setDirection(isFirstRec ? 1 : lastDrlrec.getDeepmeter() <= drlData.getDeepMeter() ? 1 : 0);
@@ -302,11 +314,11 @@ public class PileConstructionImpl {
                     currDrlrec.setDrillmeter(drlData.getDeepMovement());
                     currDrlrec.setEmptydrill(drlData.getConcreteMovement() == 0);
                     currDrlrec.setEndrec(false);  // need to check
-                    currDrlrec.setNdn(drlData.getDeepMovement() == 0 ? 0 : drlData.getRPM() / (drlData.getDeepMovement() * machine.getId().getCutwing()));
+                    currDrlrec.setNdn(drlData.getDeepMovement() == 0 ? 0 : drlData.getRPM() / (drlData.getDeepMovement() * Util.getInt(machineInfo.get("cutwing"))));
                     currDrlrec.setPsr(drlData.getPSR());
                     currDrlrec.setRdq(drlData.getDeepMovement() == 0 ? 0 : drlData.getConcreteMovement() / drlData.getDeepMovement());
                     currDrlrec.setRdqtotal(isFirstRec || drlData.getDeepMovement() == 0 ? 0 : (drlData.getConcreteMeter() - lastDrlrec.getRqtotal()) / drlData.getDeepMovement());
-                    currDrlrec.setRecby(machine.getId().getDriverid());
+                    currDrlrec.setRecby(Util.getInt(machineInfo.get("driverid")));
                     currDrlrec.setRectime(Util.toDate(drtype.getRecordTime()));
                     currDrlrec.setRotatemeter(drlData.getRPM());
                     currDrlrec.setRq(drlData.getConcreteMovement());
@@ -348,11 +360,11 @@ public class PileConstructionImpl {
                     }
 
                     // check A limit of drilling machine
-                    if (drlData.getAMP() > machine.getId().getAlim()) {
+                    if (drlData.getAMP() > Util.getDouble(machineInfo.get("alim"))) {
                         DrlmonitorId dmId = new DrlmonitorId(drid, PPID, "ALIM");
                         Drlmonitor dm = new Drlmonitor(dmId, now);
                         dm.setActval(drlData.getAMP());
-                        dm.setLimitval(machine.getId().getAlim());
+                        dm.setLimitval(Util.getDouble(machineInfo.get("alim")));
                         dm.setStatus("A");
 
                         HibernateUtil.currentSession().save(dm);
@@ -362,7 +374,7 @@ public class PileConstructionImpl {
                         alert.setDRILLTIME(Util.toXmlGregorianCalendar(now));
                         alert.setMTYPE("ALIM");
                         alert.setACTVAL(drlData.getAMP());
-                        alert.setLIMITVAL(machine.getId().getAlim());
+                        alert.setLIMITVAL(Util.getDouble(machineInfo.get("alim")));
                         alert.setPPID(PPID);
                         alert.setSTATUS("A");
 
@@ -370,11 +382,11 @@ public class PileConstructionImpl {
                     }
 
                     // check drilling speed limit
-                    if (currDrlrec.getDrillmeter() > machine.getId().getVlim()) {
+                    if (currDrlrec.getDrillmeter() > Util.getDouble(machineInfo.get("vlim"))) {
                         DrlmonitorId dmId = new DrlmonitorId(drid, PPID, "VLIM");
                         Drlmonitor dm = new Drlmonitor(dmId, now);
                         dm.setActval(currDrlrec.getDrillmeter());
-                        dm.setLimitval(machine.getId().getVlim());
+                        dm.setLimitval(Util.getDouble(machineInfo.get("vlim")));
                         dm.setStatus("A");
 
                         HibernateUtil.currentSession().save(dm);
@@ -384,7 +396,7 @@ public class PileConstructionImpl {
                         alert.setDRILLTIME(Util.toXmlGregorianCalendar(now));
                         alert.setMTYPE("VLIM");
                         alert.setACTVAL(currDrlrec.getDrillmeter());
-                        alert.setLIMITVAL(machine.getId().getVlim());
+                        alert.setLIMITVAL(Util.getDouble(machineInfo.get("vlim")));
                         alert.setPPID(PPID);
                         alert.setSTATUS("A");
 
@@ -402,7 +414,7 @@ public class PileConstructionImpl {
             Util.handleException(e, res);
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -415,12 +427,12 @@ public class PileConstructionImpl {
     public static GetDrillingRecordDetailRes getDrillingRecordDetail(GetDrillingRecordDetailReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "PileConstruction/GetDrillingRecordDetail";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         GetDrillingRecordDetailRes res = new GetDrillingRecordDetailRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -429,7 +441,7 @@ public class PileConstructionImpl {
             List<Drlrecmemo> listDrlrec = GenericHql.INSTANCE.query("from Drlrecmemo where ppid=:id order by drilltime desc", "id", ppid);
             for (Drlrecmemo drlrec : listDrlrec) {
                 DrillingRecordDetailType drldetail = new DrillingRecordDetailType();
-                
+
                 drldetail.setDRIVER(drlrec.getDriver());
                 drldetail.setFMID(drlrec.getFmid());
                 drldetail.setMPID(drlrec.getMpid());
@@ -467,7 +479,7 @@ public class PileConstructionImpl {
             Util.handleException(e, res);
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -480,12 +492,12 @@ public class PileConstructionImpl {
     public static ModifyDrillingRecordRes modifyDrillingRecord(ModifyDrillingRecordReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "PileConstruction/ModifyDrillingRecord";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         ModifyDrillingRecordRes res = new ModifyDrillingRecordRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -538,7 +550,7 @@ public class PileConstructionImpl {
             Util.handleException(e, res);
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -552,12 +564,12 @@ public class PileConstructionImpl {
 
         String key = UUID.randomUUID().toString();
         String opr = "PileConstruction/ApproveDrillingRecord";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         ApproveDrillingRecordRes res = new ApproveDrillingRecordRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -588,7 +600,7 @@ public class PileConstructionImpl {
             Util.handleException(e, res);
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 }

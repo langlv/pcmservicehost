@@ -38,12 +38,12 @@ public class ReportImpl {
     public static DayendRes runDayend(DayendReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "Report/RunDayend";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         DayendRes res = new DayendRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -60,7 +60,7 @@ public class ReportImpl {
             Util.handleException(e, res);
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -73,12 +73,12 @@ public class ReportImpl {
     public static ExecReportRes execReport(ExecReportReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "Report/ExecReport";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         ExecReportRes res = new ExecReportRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -95,7 +95,7 @@ public class ReportImpl {
             Util.handleException(e, res);
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 

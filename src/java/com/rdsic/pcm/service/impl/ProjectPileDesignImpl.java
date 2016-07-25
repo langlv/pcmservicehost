@@ -90,12 +90,12 @@ public class ProjectPileDesignImpl {
     public static GetProjectDetailRes getProjectDetail(GetProjectDetailReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "ProjectPileDesign/GetProjectDetail";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         GetProjectDetailRes res = new GetProjectDetailRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
         try {
@@ -130,7 +130,7 @@ public class ProjectPileDesignImpl {
             Util.handleException(e, res);
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -143,13 +143,13 @@ public class ProjectPileDesignImpl {
     public static AddOrUpdateProjectRes addOrUpdateProject(AddOrUpdateProjectReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "ProjectPileDesign/AddOrUpdateProject";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
 
         AddOrUpdateProjectRes res = new AddOrUpdateProjectRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
         try {
@@ -188,7 +188,7 @@ public class ProjectPileDesignImpl {
             Util.handleException(e, res);
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -201,12 +201,12 @@ public class ProjectPileDesignImpl {
     public static GetPileDesignRes getPileDesign(GetPileDesignReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "ProjectPileDesign/GetPileDesign";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         GetPileDesignRes res = new GetPileDesignRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
         try {
@@ -246,7 +246,7 @@ public class ProjectPileDesignImpl {
             Util.handleException(e, res);
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -259,13 +259,13 @@ public class ProjectPileDesignImpl {
     public static AddOrUpdatePileDesignRes addOrUpdatePileDesign(AddOrUpdatePileDesignReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "ProjectPileDesign/AddOrUpdatePileDesign";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
 
         AddOrUpdatePileDesignRes res = new AddOrUpdatePileDesignRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
         try {
@@ -279,7 +279,7 @@ public class ProjectPileDesignImpl {
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
 
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -293,11 +293,11 @@ public class ProjectPileDesignImpl {
         String key = UUID.randomUUID().toString();
         Date now = new Date();
         String opr = "ProjectPileDesign/AddOrUpdateProjectPilePlan";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         AddOrUpdatePilePlanRes res = new AddOrUpdatePilePlanRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
         try {
@@ -385,7 +385,7 @@ public class ProjectPileDesignImpl {
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
 
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -398,12 +398,12 @@ public class ProjectPileDesignImpl {
     public static GetPilePlanDetailRes getPilePlanDetail(GetPilePlanDetailReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "ProjectPileDesign/GetProjectPilePlan";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         GetPilePlanDetailRes res = new GetPilePlanDetailRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
         try {
@@ -471,7 +471,7 @@ public class ProjectPileDesignImpl {
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
 
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -484,12 +484,12 @@ public class ProjectPileDesignImpl {
     public static GetProjectAssetSummaryRes getProjectAssetSummary(GetProjectAssetSummaryReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "ProjectPileDesign/GetProjectAssetSummary";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         GetProjectAssetSummaryRes res = new GetProjectAssetSummaryRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -647,7 +647,7 @@ public class ProjectPileDesignImpl {
         }
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
 
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 }

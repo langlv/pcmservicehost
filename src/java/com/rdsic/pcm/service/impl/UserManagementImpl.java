@@ -35,7 +35,7 @@ public class UserManagementImpl {
     public static UserLoginRes getUserByLogin(UserLoginReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "UserManagement/Login";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         XMLGregorianCalendar nowXml = Util.toXmlGregorianCalendar(now);
@@ -143,7 +143,7 @@ public class UserManagementImpl {
         }
 
         res.setResponseDateTime(nowXml);
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -156,11 +156,11 @@ public class UserManagementImpl {
     public static UnlockUserRes unlockUser(UnlockUserReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "UserManagement/UnlockUser";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         UnlockUserRes res = new UnlockUserRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -175,7 +175,7 @@ public class UserManagementImpl {
         }
 
         res.setResponseDateTime(Util.toXmlGregorianCalendar(new Date()));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -188,11 +188,11 @@ public class UserManagementImpl {
     public static ResetPasswordRes resetPassword(ResetPasswordReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "UserManagement/ResetPassword";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         ResetPasswordRes res = new ResetPasswordRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -207,7 +207,7 @@ public class UserManagementImpl {
         }
 
         res.setResponseDateTime(Util.toXmlGregorianCalendar(new Date()));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -220,13 +220,13 @@ public class UserManagementImpl {
     public static AddOrUpdateUserRes addOrUpdateUser(AddOrUpdateUserReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "UserManagement/AddOrUpdateUser";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
 
         AddOrUpdateUserRes res = new AddOrUpdateUserRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
         try {
@@ -268,7 +268,7 @@ public class UserManagementImpl {
         }
 
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -281,7 +281,7 @@ public class UserManagementImpl {
     public static UserLogoutRes userLogout(UserLogoutReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "UserManagement/Logout";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
 
@@ -312,7 +312,7 @@ public class UserManagementImpl {
         }
 
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
 
     }

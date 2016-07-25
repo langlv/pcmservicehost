@@ -33,12 +33,12 @@ public class GenericQueryImpl {
     public static SelectQueryRes select(SelectQueryReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "GenericQuery/Select";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         SelectQueryRes res = new SelectQueryRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -102,7 +102,7 @@ public class GenericQueryImpl {
         }
 
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
 
     }
@@ -116,12 +116,12 @@ public class GenericQueryImpl {
     public static AddOrUpdateRes addOrUpdate(AddOrUpdateReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "GenericQuery/AddOrUpdate";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         AddOrUpdateRes res = new AddOrUpdateRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -176,7 +176,7 @@ public class GenericQueryImpl {
         }
 
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 }

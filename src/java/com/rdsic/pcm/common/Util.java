@@ -7,7 +7,6 @@ package com.rdsic.pcm.common;
 
 import com.rdsic.pcm.data.entity.User;
 import com.rdsic.pcm.data.entity.VUserpermission;
-import com.rdsic.pcm.service.impl.Logger;
 import com.rdsic.pcm.service.impl.PCMException;
 import com.rdsic.pileconstructionmanagement.type.common.service.BaseReq;
 import com.rdsic.pileconstructionmanagement.type.common.service.BaseRes;
@@ -25,12 +24,15 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilderFactory;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author langl
  */
 public class Util {
+
+    private static final Logger logger = Logger.getLogger(Util.class);
 
     private static final int DEFAULT_ACTIVE_TOKEN = 5; //minutes
     private static final HashMap<String, Marshaller> entityMarshallers = new HashMap();
@@ -63,7 +65,7 @@ public class Util {
             cal.setTime(d);
             return DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
         } catch (DatatypeConfigurationException ex) {
-            Logger.defaultLogger.error(ex.getMessage(), ex);
+            logger.error(ex.getMessage(), ex);
         }
         return null;
     }
@@ -112,7 +114,7 @@ public class Util {
             return sw.toString();
 
         } catch (Exception e) {
-            Logger.defaultLogger.error(e.getMessage(), e);
+            logger.error(e.getMessage(), e);
         }
         return "";
     }
@@ -194,6 +196,12 @@ public class Util {
         return true;
     }
 
+    /**
+     * Handle the exception for service execution
+     *
+     * @param e
+     * @param res
+     */
     public static void handleException(Exception e, BaseRes res) {
         if (e == null) {
             return;
@@ -208,7 +216,32 @@ public class Util {
             res.setErrorCode(Constant.STATUS_CODE.ERR_SYSTEM_FAIL);
             res.setErrorMessage(e.getMessage());
         }
-        e.printStackTrace();
-        Logger.defaultLogger.error(e.getMessage(), e);
+        // e.printStackTrace();
+        logger.error(e.getMessage(), e);
     }
+
+    /**
+     * Get integer value of an object
+     * @param t
+     * @return 
+     */
+    public static int getInt(Object t) {
+        if (t == null) {
+            return 0;
+        }
+        return Integer.parseInt(t.toString());
+    }
+    
+    /**
+     * Get double value of an object
+     * @param t
+     * @return 
+     */
+    public static double getDouble(Object t) {
+        if (t == null) {
+            return 0;
+        }
+        return Double.parseDouble(t.toString());
+    }
+    
 }

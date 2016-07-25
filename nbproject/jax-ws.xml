@@ -161,6 +161,9 @@
         </wsimport-option>
       </wsimport-options>
     </service>
+    <service name="EchoService">
+      <implementation-class>com.rdsic.pcm.service.EchoService</implementation-class>
+    </service>
   </services>
   <clients/>
   <jsr109>true</jsr109>
