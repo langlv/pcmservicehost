@@ -452,13 +452,10 @@
                                         <xs:documentation>Approval datetime</xs:documentation>
                                     </xs:annotation>
                                 </xs:element>
-                                <xs:element name="DrillingRecords">
-                                    <xs:annotation>
-                                        <xs:documentation>List of drilling record ids to be approved</xs:documentation>
-                                    </xs:annotation>
+                                <xs:element name="Piles">
                                     <xs:complexType>
                                         <xs:sequence>
-                                            <xs:element name="DRID" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+                                            <xs:element name="PPID" type="xs:int" minOccurs="0" maxOccurs="unbounded"/>
                                         </xs:sequence>
                                     </xs:complexType>
                                 </xs:element>
@@ -546,6 +543,7 @@
                         <xs:extension base="ns0:BaseRes">
                             <xs:sequence>
                                 <xs:element name="DrillingRecord" type="DrillingRecordDetailType" minOccurs="0" maxOccurs="unbounded"/>
+                                <xs:element name="DrillingAlert" type="DrillingAlertType" minOccurs="0" maxOccurs="unbounded"/>
                             </xs:sequence>
                         </xs:extension>
                     </xs:complexContent>

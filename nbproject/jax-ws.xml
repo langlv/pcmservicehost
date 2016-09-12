@@ -35,7 +35,7 @@
     </service>
     <service name="UserManagement">
       <implementation-class>com.rdsic.pcm.service.UserManagement</implementation-class>
-      <wsdl-url>file:/Z:/PilesContructionManagement/03.design/ConcreteWSDL/UserManagement_v1.0.wsdl</wsdl-url>
+      <wsdl-url>file:/D:/Work/OTHER/OneDrive/Workspace/Projects/PilesContructionManagement/03.design/ConcreteWSDL/UserManagement_v1.0.wsdl</wsdl-url>
       <local-wsdl-file>UserManagement_v1.0.wsdl</local-wsdl-file>
       <service-name>UserManagement</service-name>
       <port-name>UserManagement</port-name>

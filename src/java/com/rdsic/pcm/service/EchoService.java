@@ -5,6 +5,7 @@
  */
 package com.rdsic.pcm.service;
 
+import java.util.Date;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -18,11 +19,22 @@ public class EchoService {
 
     /**
      * This is a sample web service operation
+     *
      * @param txt
-     * @return 
+     * @return
      */
     @WebMethod(operationName = "Ping")
     public String Ping(@WebParam(name = "clientName") String txt) {
         return "Hello " + txt + " !";
+    }
+
+    /**
+     * Return date at the server
+     * 
+     * @return 
+     */
+    @WebMethod(operationName = "GetDate")
+    public Date getDate() {
+        return new Date();
     }
 }

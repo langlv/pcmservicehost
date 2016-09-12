@@ -372,7 +372,7 @@ public class ProjectPileDesignImpl {
             pp.setVertically(ppt.getVERTICALLY());
             pp.setX(ppt.getX());
             pp.setY(ppt.getY());
-            pp.setStatus(ppt.getSTATUS());
+            pp.setStatus(Constant.CODEDEF.PILEPLAN_STATUS_N);
 
             HibernateUtil.currentSession().save(pp);
             HibernateUtil.commit();

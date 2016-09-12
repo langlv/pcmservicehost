@@ -20,18 +20,13 @@ import com.rdsic.pcm.data.entity.Drlmonitor;
 import com.rdsic.pcm.data.entity.DrlmonitorId;
 import com.rdsic.pcm.data.entity.Piledesign;
 import com.rdsic.pcm.data.entity.User;
-import com.rdsic.pcm.data.entity.VDrlmachineinfo;
 import com.rdsic.pileconstructionmanagement.type.pileconstruction.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.log4j.Logger;
-import org.json.JSONObject;
 
 /**
  *
@@ -66,7 +61,7 @@ public class PileConstructionImpl {
 
             // validate record exists if id is specified
             if (cid > 0) {
-                List<Cementin> list = GenericHql.INSTANCE.query("From Cementin where cid=:id", "id", cid);
+                List<Cementin> list = GenericHql.INSTANCE.query("From Cementin where cid=:id", 1, "id", cid);
                 if (list.isEmpty()) {
                     throw new PCMException("Invalid cement plan id " + cid, Constant.STATUS_CODE.ERR_ID_INVALID);
                 }
@@ -297,6 +292,13 @@ public class PileConstructionImpl {
                     Drlrecmemo lastDrlrec = listDrlrec.isEmpty() ? null : listDrlrec.get(0);
                     boolean isFirstRec = lastDrlrec == null;
 
+                    // update the pile plan is in drilling progress status
+                    if (isFirstRec) {
+                        drlPlan.setStatus(Constant.CODEDEF.PILEPLAN_STATUS_D);
+                        drlPlan.setActstart(Util.toDate(drtype.getRecordTime()));
+                        HibernateUtil.currentSession().save(drlPlan);
+                    }
+
                     Drlrecmemo currDrlrec = new Drlrecmemo();
                     String drid = Util.generateToken();
 
@@ -319,12 +321,12 @@ public class PileConstructionImpl {
                     currDrlrec.setRdq(drlData.getDeepMovement() == 0 ? 0 : drlData.getConcreteMovement() / drlData.getDeepMovement());
                     currDrlrec.setRdqtotal(isFirstRec || drlData.getDeepMovement() == 0 ? 0 : (drlData.getConcreteMeter() - lastDrlrec.getRqtotal()) / drlData.getDeepMovement());
                     currDrlrec.setRecby(Util.getInt(machineInfo.get("driverid")));
-                    currDrlrec.setRectime(Util.toDate(drtype.getRecordTime()));
+                    currDrlrec.setRectime(now);
                     currDrlrec.setRotatemeter(drlData.getRPM());
                     currDrlrec.setRq(drlData.getConcreteMovement());
                     currDrlrec.setRqtotal(drlData.getConcreteMeter());
                     currDrlrec.setStartrec(isFirstRec);
-                    currDrlrec.setAppsts("N"); // new
+                    currDrlrec.setAppsts(Constant.CODEDEF.DRLRECMEMO_STATUS_N); // new
 
                     HibernateUtil.currentSession().save(currDrlrec);
 
@@ -339,7 +341,7 @@ public class PileConstructionImpl {
                     double QLim = pileDesign.getQlim();
 
                     if (SumRdQ > QLim) {
-                        DrlmonitorId dmId = new DrlmonitorId(drid, PPID, "SUMQ");
+                        DrlmonitorId dmId = new DrlmonitorId(drid, PPID, Constant.CODEDEF.DRLMONITOR_MTYPE_SUMQ);
                         Drlmonitor dm = new Drlmonitor(dmId, now);
                         dm.setActval(SumRdQ);
                         dm.setLimitval(QLim);
@@ -350,7 +352,7 @@ public class PileConstructionImpl {
                         DrillingAlertType alert = new DrillingAlertType();
                         alert.setDRID(drid);
                         alert.setDRILLTIME(Util.toXmlGregorianCalendar(now));
-                        alert.setMTYPE("SUMQ");
+                        alert.setMTYPE(Constant.CODEDEF.DRLMONITOR_MTYPE_SUMQ);
                         alert.setACTVAL(SumRdQ);
                         alert.setLIMITVAL(QLim);
                         alert.setPPID(PPID);
@@ -359,9 +361,9 @@ public class PileConstructionImpl {
                         res.getDrillingAlert().add(alert);
                     }
 
-                    // check A limit of drilling machine
+                    // check A_lim of drilling machine
                     if (drlData.getAMP() > Util.getDouble(machineInfo.get("alim"))) {
-                        DrlmonitorId dmId = new DrlmonitorId(drid, PPID, "ALIM");
+                        DrlmonitorId dmId = new DrlmonitorId(drid, PPID, Constant.CODEDEF.DRLMONITOR_MTYPE_ALIM);
                         Drlmonitor dm = new Drlmonitor(dmId, now);
                         dm.setActval(drlData.getAMP());
                         dm.setLimitval(Util.getDouble(machineInfo.get("alim")));
@@ -372,7 +374,7 @@ public class PileConstructionImpl {
                         DrillingAlertType alert = new DrillingAlertType();
                         alert.setDRID(drid);
                         alert.setDRILLTIME(Util.toXmlGregorianCalendar(now));
-                        alert.setMTYPE("ALIM");
+                        alert.setMTYPE(Constant.CODEDEF.DRLMONITOR_MTYPE_ALIM);
                         alert.setACTVAL(drlData.getAMP());
                         alert.setLIMITVAL(Util.getDouble(machineInfo.get("alim")));
                         alert.setPPID(PPID);
@@ -381,9 +383,9 @@ public class PileConstructionImpl {
                         res.getDrillingAlert().add(alert);
                     }
 
-                    // check drilling speed limit
+                    // check V_lim speed limit
                     if (currDrlrec.getDrillmeter() > Util.getDouble(machineInfo.get("vlim"))) {
-                        DrlmonitorId dmId = new DrlmonitorId(drid, PPID, "VLIM");
+                        DrlmonitorId dmId = new DrlmonitorId(drid, PPID, Constant.CODEDEF.DRLMONITOR_MTYPE_VLIM);
                         Drlmonitor dm = new Drlmonitor(dmId, now);
                         dm.setActval(currDrlrec.getDrillmeter());
                         dm.setLimitval(Util.getDouble(machineInfo.get("vlim")));
@@ -394,7 +396,7 @@ public class PileConstructionImpl {
                         DrillingAlertType alert = new DrillingAlertType();
                         alert.setDRID(drid);
                         alert.setDRILLTIME(Util.toXmlGregorianCalendar(now));
-                        alert.setMTYPE("VLIM");
+                        alert.setMTYPE(Constant.CODEDEF.DRLMONITOR_MTYPE_VLIM);
                         alert.setACTVAL(currDrlrec.getDrillmeter());
                         alert.setLIMITVAL(Util.getDouble(machineInfo.get("vlim")));
                         alert.setPPID(PPID);
@@ -474,6 +476,20 @@ public class PileConstructionImpl {
                 res.getDrillingRecord().add(drldetail);
             }
 
+            List<Drlmonitor> listDrlMor = GenericHql.INSTANCE.query("from Drlmonitor where ppid=:id order by drilltime desc", "id", ppid);
+            for (Drlmonitor m : listDrlMor) {
+                DrillingAlertType alert = new DrillingAlertType();
+                alert.setPPID(ppid);
+                alert.setDRID(m.getId().getDrid());
+                alert.setDRILLTIME(Util.toXmlGregorianCalendar(m.getDrilltime()));
+                alert.setACTVAL(m.getActval());
+                alert.setLIMITVAL(m.getLimitval());
+                alert.setMTYPE(m.getId().getMtype());
+                alert.setSTATUS(m.getStatus());
+
+                res.getDrillingAlert().add(alert);
+            }
+
             res.setStatus(Constant.STATUS_CODE.OK);
         } catch (Exception e) {
             Util.handleException(e, res);
@@ -515,7 +531,7 @@ public class PileConstructionImpl {
             }
 
             Drlrecmemo drlmemo = listDrl.get(0);
-            if ("A".equalsIgnoreCase(drlmemo.getAppsts())) {
+            if (Constant.CODEDEF.DRLRECMEMO_STATUS_A.equalsIgnoreCase(drlmemo.getAppsts())) {
                 throw new PCMException("", "Current drilling record has been approved. It can not be modified.");
             }
 
@@ -585,12 +601,24 @@ public class PileConstructionImpl {
 
             HibernateUtil.beginTransaction();
 
-            for (String drid : req.getDrillingRecords().getDRID()) {
-                int cnt = GenericHql.INSTANCE.update("Update Drlrecmemo set appby=:appby, apptime=:apptime, appsts='A' where drid=:drid",
+            for (int ppid : req.getPiles().getPPID()) {
+
+                // update status and approve information
+                int cnt = GenericHql.INSTANCE.update("Update Drlrecmemo set appby=:appby, apptime=:apptime, appsts=:status where ppid=:ppid",
                         false,
                         "appby", approvalId,
                         "apptime", approvalTime,
-                        "drid", drid);
+                        "status", Constant.CODEDEF.DRLRECMEMO_STATUS_A,
+                        "ppid", ppid);
+
+                // detect the end record of drilling
+                List<Drlrecmemo> list = GenericHql.INSTANCE.query("From Drlrecmemo where ppid=:ppid order by drilltime desc", "ppid", ppid);
+                if (!list.isEmpty()) {
+                    Drlrecmemo drl = list.get(0);
+                    drl.setEndrec(true);
+                    HibernateUtil.currentSession().save(drl);
+                }
+
                 totalRecUpdated += cnt;
             }
             HibernateUtil.commit();

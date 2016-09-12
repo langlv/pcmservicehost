@@ -24,10 +24,11 @@ public class GenericHql<T extends Serializable> {
     public void GenericHql() {
     }
 
-    /**
+       /**
      * Execute a hql query
      *
      * @param hql
+     * @param maxRows
      * @param params list of parameters and values: par1,val1,par2,val2,...
      * @return
      */
@@ -39,6 +40,7 @@ public class GenericHql<T extends Serializable> {
                 q.setParameter(params[i].toString(), params[++i]);
             }
         }
+        //q.setMaxResults(maxRows);
         return q.list();
     }
 
@@ -50,12 +52,26 @@ public class GenericHql<T extends Serializable> {
      * @param paramValues
      * @return
      */
-    public List<T> queryWithParamList(String hql, String param, Object[] paramValues) {
+    public List<T> queryWithParamList(String hql, String param, Object[] paramValues) throws Exception {
+        return queryWithParamList(hql, Configuration.getInt(Constant.CONFIG_KEY.PCM_QUERY_MAX_ROW), param, paramValues);
+    }
+
+    /**
+     * Execute a "SELECT ... FROM ... WHRE parm_name IN (value_list)" query
+     *
+     * @param hql
+     * @param maxRows
+     * @param param
+     * @param paramValues
+     * @return
+     */
+    public List<T> queryWithParamList(String hql, int maxRows, String param, Object[] paramValues) {
         Query q = HibernateUtil.currentSession().createQuery(hql);
         HibernateUtil.currentSession().setCacheMode(CacheMode.IGNORE);
         if (param != null && paramValues != null) {
             q.setParameterList(param, paramValues);
         }
+        q.setMaxResults(maxRows);
         return q.list();
     }
 
