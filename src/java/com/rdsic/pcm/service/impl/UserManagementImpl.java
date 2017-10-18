@@ -35,7 +35,7 @@ public class UserManagementImpl {
     public static UserLoginRes getUserByLogin(UserLoginReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "UserManagement/Login";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
         XMLGregorianCalendar nowXml = Util.toXmlGregorianCalendar(now);
@@ -73,11 +73,11 @@ public class UserManagementImpl {
             user.setLastactive(now);
             HibernateUtil.currentSession().save(user);
 
-            if (validated && user.getStatus().equalsIgnoreCase("D")) {
+            if (validated && Constant.CODEDEF.USER_STATUS_L.equalsIgnoreCase(user.getStatus())) {
                 validated = false;
                 res.setStatus("1");
                 res.setErrorCode(Constant.STATUS_CODE.ERR_USER_DISABLED);
-                res.setErrorMessage("User has been disabled");
+                res.setErrorMessage("User has been locked");
                 res.setResponseDateTime(nowXml);
             }
 
@@ -143,7 +143,7 @@ public class UserManagementImpl {
         }
 
         res.setResponseDateTime(nowXml);
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -156,16 +156,16 @@ public class UserManagementImpl {
     public static UnlockUserRes unlockUser(UnlockUserReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "UserManagement/UnlockUser";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         UnlockUserRes res = new UnlockUserRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
         try {
-            int cnt = GenericHql.INSTANCE.update("update User set status='A' where userid=:userid", true, "userid", req.getUserId());
+            int cnt = GenericHql.INSTANCE.update("update User set status=:status where userid=:userid", true, "status", Constant.CODEDEF.USER_STATUS_A, "userid", req.getUserId());
             if (cnt <= 0) {
                 throw new Exception("Unable to update user");
             }
@@ -175,7 +175,7 @@ public class UserManagementImpl {
         }
 
         res.setResponseDateTime(Util.toXmlGregorianCalendar(new Date()));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -188,11 +188,11 @@ public class UserManagementImpl {
     public static ResetPasswordRes resetPassword(ResetPasswordReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "UserManagement/ResetPassword";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         ResetPasswordRes res = new ResetPasswordRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
 
@@ -207,7 +207,7 @@ public class UserManagementImpl {
         }
 
         res.setResponseDateTime(Util.toXmlGregorianCalendar(new Date()));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -220,13 +220,13 @@ public class UserManagementImpl {
     public static AddOrUpdateUserRes addOrUpdateUser(AddOrUpdateUserReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "UserManagement/AddOrUpdateUser";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
 
         AddOrUpdateUserRes res = new AddOrUpdateUserRes();
         if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
-            Logger.LogRes(key, opr, res);
+            ServiceLogger.LogRes(key, opr, res);
             return res;
         }
         try {
@@ -268,7 +268,7 @@ public class UserManagementImpl {
         }
 
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
     }
 
@@ -281,7 +281,7 @@ public class UserManagementImpl {
     public static UserLogoutRes userLogout(UserLogoutReq req) {
         String key = UUID.randomUUID().toString();
         String opr = "UserManagement/Logout";
-        Logger.LogReq(key, opr, req);
+        ServiceLogger.LogReq(key, opr, req);
 
         Date now = new Date();
 
@@ -312,8 +312,41 @@ public class UserManagementImpl {
         }
 
         res.setResponseDateTime(Util.toXmlGregorianCalendar(now));
-        Logger.LogRes(key, opr, res);
+        ServiceLogger.LogRes(key, opr, res);
         return res;
 
     }
+
+    /**
+     * Implementation for LockUser operation
+     *
+     * @param req
+     * @return
+     */
+    public static LockUserRes lockUser(LockUserReq req) {
+        String key = UUID.randomUUID().toString();
+        String opr = "UserManagement/LockUser";
+        ServiceLogger.LogReq(key, opr, req);
+
+        LockUserRes res = new LockUserRes();
+        if (!Util.validateRequest(req, opr, Constant.FUNCTIONALITY_ACTION.WS_INVOKE, res)) {
+            ServiceLogger.LogRes(key, opr, res);
+            return res;
+        }
+
+        try {
+            int cnt = GenericHql.INSTANCE.update("update User set status=:status where userid=:userid", true, "status", Constant.CODEDEF.USER_STATUS_L, "userid", req.getUserId());
+            if (cnt <= 0) {
+                throw new Exception("Unable to update user");
+            }
+            res.setStatus(Constant.STATUS_CODE.OK);
+        } catch (Exception e) {
+            Util.handleException(e, res);
+        }
+
+        res.setResponseDateTime(Util.toXmlGregorianCalendar(new Date()));
+        ServiceLogger.LogRes(key, opr, res);
+        return res;
+    }
+
 }

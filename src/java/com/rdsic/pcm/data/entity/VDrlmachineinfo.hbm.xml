@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 21, 2016 12:09:12 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.VDrlmachineinfo" table="v_drlmachineinfo" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.VDrlmachineinfoId">
+            <key-property name="dmid" type="int">
+                <column name="dmid" />
+            </key-property>
+            <key-property name="dmcode" type="string">
+                <column name="dmcode" length="50" />
+            </key-property>
+            <key-property name="dmname" type="string">
+                <column name="dmname" />
+            </key-property>
+            <key-property name="dmflowmeterid" type="string">
+                <column name="dmflowmeterid" length="50" />
+            </key-property>
+            <key-property name="cutwing" type="int">
+                <column name="cutwing" />
+            </key-property>
+            <key-property name="alim" type="java.lang.Double">
+                <column name="alim" precision="11" />
+            </key-property>
+            <key-property name="vlim" type="java.lang.Double">
+                <column name="vlim" precision="11" />
+            </key-property>
+            <key-property name="driverid" type="int">
+                <column name="driverid" />
+            </key-property>
+            <key-property name="drivername" type="string">
+                <column name="drivername" />
+            </key-property>
+            <key-property name="team" type="string">
+                <column name="team" length="50" />
+            </key-property>
+            <key-property name="role" type="string">
+                <column name="role" length="50" />
+            </key-property>
+            <key-property name="userid" type="string">
+                <column name="userid" length="50" />
+            </key-property>
+            <key-property name="mpid" type="int">
+                <column name="mpid" />
+            </key-property>
+            <key-property name="mpcode" type="string">
+                <column name="mpcode" length="50" />
+            </key-property>
+            <key-property name="mpname" type="string">
+                <column name="mpname" />
+            </key-property>
+            <key-property name="sid" type="int">
+                <column name="sid" />
+            </key-property>
+            <key-property name="silocode" type="string">
+                <column name="silocode" length="50" />
+            </key-property>
+            <key-property name="siloname" type="string">
+                <column name="siloname" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

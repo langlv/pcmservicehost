@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated May 10, 2016 10:40:29 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jul 21, 2016 12:09:12 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.rdsic.pcm.data.entity.Team" table="team" catalog="pcm" optimistic-lock="version">
         <composite-id name="id" class="com.rdsic.pcm.data.entity.TeamId">
@@ -19,7 +19,7 @@
         </property>
         <property name="empcnt" type="java.lang.Integer">
             <column name="EMPCNT">
-                <comment>Number of employees assgned to this team</comment>
+                <comment>Number of employees assigned to this team</comment>
             </column>
         </property>
     </class>

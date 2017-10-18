@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 21, 2016 12:09:12 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.rdsic.pcm.data.entity.Drlmonitor" table="drlmonitor" catalog="pcm" optimistic-lock="version">
+        <composite-id name="id" class="com.rdsic.pcm.data.entity.DrlmonitorId">
+            <key-property name="drid" type="string">
+                <column name="DRID" length="50" />
+            </key-property>
+            <key-property name="ppid" type="int">
+                <column name="PPID" />
+            </key-property>
+            <key-property name="mtype" type="string">
+                <column name="MTYPE" length="50" />
+            </key-property>
+        </composite-id>
+        <property name="drilltime" type="timestamp">
+            <column name="DRILLTIME" length="19" not-null="true">
+                <comment>Current drilling time</comment>
+            </column>
+        </property>
+        <property name="limitval" type="java.lang.Double">
+            <column name="LIMITVAL" precision="11">
+                <comment>Litmit value</comment>
+            </column>
+        </property>
+        <property name="actval" type="java.lang.Double">
+            <column name="ACTVAL" precision="11">
+                <comment>Actual value</comment>
+            </column>
+        </property>
+        <property name="status" type="string">
+            <column name="STATUS" length="50">
+                <comment>Drilling status</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

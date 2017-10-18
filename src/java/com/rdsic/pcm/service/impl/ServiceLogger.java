@@ -12,14 +12,15 @@ import com.rdsic.pcm.data.entity.DlogId;
 import com.rdsic.pileconstructionmanagement.type.common.service.BaseReq;
 import com.rdsic.pileconstructionmanagement.type.common.service.BaseRes;
 import java.util.Date;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author langl
  */
-public class Logger {
+public class ServiceLogger {
 
-    public static final org.apache.log4j.Logger defaultLogger = org.apache.log4j.Logger.getLogger(Logger.class);
+    private static final Logger logger = Logger.getLogger(ServiceLogger.class);
 
     public static void LogReq(String key, String action, BaseReq req) {
         Util.executorService.submit(() -> {
@@ -27,7 +28,7 @@ public class Logger {
             String userid = Util.isNullOrEmpty(req.getToken()) ? "login" : req.getToken();
             String clientid = Util.isNullOrEmpty(req.getClientId()) ? "anonymous" : req.getClientId();
 
-            defaultLogger.info(String.format("[<<<<id=%s,clientid=%s,userid=%s][request_data=%s]", new Object[]{key, clientid, userid, raw}));
+            logger.info(String.format("[<<<<id=%s|clientid=%s|userid=%s|operation=%s][request_data=%s]", new Object[]{key, clientid, userid, action, raw}));
             try {
                 Date now = new Date();
                 DlogId logId = new DlogId(now, key, 0);
@@ -41,43 +42,19 @@ public class Logger {
                 HibernateUtil.commit();
             } catch (Exception e) {
                 HibernateUtil.rollback();
-                defaultLogger.error(e.getMessage(), e);
+                logger.error(e.getMessage(), e);
                 e.printStackTrace();
             }
         });
     }
 
-//    public static void LogReq(String key, String action, BaseReq req) {
-//
-//        String raw = Util.toXMLString(req);
-//        String userid = Util.isNullOrEmpty(req.getToken()) ? "login" : req.getToken();
-//        String clientid = Util.isNullOrEmpty(req.getClientId()) ? "anonymous" : req.getClientId();
-//
-//        defaultLogger.info(String.format("[<<<<id=%s,clientid=%s,userid=%s][request_data=%s]", new Object[]{key, clientid, userid, raw}));
-//        try {
-//            Date now = new Date();
-//            DlogId logId = new DlogId(now, key, 0);
-//            Dlog log = new Dlog(logId, clientid);
-//            log.setUserid(userid);
-//            log.setOperation(action);
-//            log.setRawreq(raw);
-//            log.setReqat(now);
-//            HibernateUtil.beginTransaction();
-//            HibernateUtil.currentSession().save(log);
-//            HibernateUtil.commit();
-//        } catch (Exception e) {
-//            HibernateUtil.rollback();
-//            defaultLogger.error(e.getMessage(), e);
-//            e.printStackTrace();
-//        }
-//    }
     public static void LogRes(String key, String action, BaseRes res) {
         Util.executorService.submit(() -> {
             String raw = Util.toXMLString(res);
             String userid = Util.isNullOrEmpty(res.getOriginalClientReq().getToken()) ? "login" : res.getOriginalClientReq().getToken();
             String clientid = Util.isNullOrEmpty(res.getOriginalClientReq().getClientId()) ? "anonymous" : res.getOriginalClientReq().getClientId();
 
-            defaultLogger.info(String.format("[>>>>id=%s,clientid=%s,userid=%s][response_data=%s]", new Object[]{key, clientid, userid, raw}));
+            logger.info(String.format("[>>>>id=%s|clientid=%s|userid=%s|operation=%s][response_data=%s]", new Object[]{key, clientid, userid, action, raw}));
 
             try {
                 Date now = new Date();
@@ -93,7 +70,7 @@ public class Logger {
                 HibernateUtil.commit();
             } catch (Exception e) {
                 HibernateUtil.rollback();
-                defaultLogger.error(e.getMessage(), e);
+                logger.error(e.getMessage(), e);
                 e.printStackTrace();
             }
         });

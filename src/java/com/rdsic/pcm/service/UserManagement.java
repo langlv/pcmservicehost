@@ -10,7 +10,7 @@ import javax.jws.WebService;
 
 /**
  *
- * @author langl
+ * @author NAPAS
  */
 @WebService(serviceName = "UserManagement", portName = "UserManagement", endpointInterface = "com.rdsic.pileconstructionmanagement.service.usermanagement.UserManagementPortType", targetNamespace = "http://rdsic.com/pileconstructionmanagement/service/usermanagement", wsdlLocation = "WEB-INF/wsdl/UserManagement/UserManagement_v1.0.wsdl")
 public class UserManagement {
@@ -35,4 +35,7 @@ public class UserManagement {
         return UserManagementImpl.addOrUpdateUser(parameter);
     }
 
+    public com.rdsic.pileconstructionmanagement.type.usermanagement.user.LockUserRes lockUser(com.rdsic.pileconstructionmanagement.type.usermanagement.user.LockUserReq req) {
+        return UserManagementImpl.lockUser(req);
+    }
 }

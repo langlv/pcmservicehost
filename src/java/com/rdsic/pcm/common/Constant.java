@@ -59,4 +59,27 @@ public class Constant {
         public static String PCM_XML_PRETTY_PRINT = "PCM_XML_PRETTY_PRINT";
 
     }
+
+    public static class CODEDEF {
+
+        public static final String FUNCTION_TYPE_SA = "SA";
+        public static final String FUNCTION_TYPE_BA = "BA";
+        public static final String FUNCTION_TYPE_MN = "MN";
+        public static final String FUNCTION_OPERATION_INVOKE = "INVOKE";
+        public static final String FUNCTION_OPERATION_ACCESS = "ACCESS";
+        public static final String DRLMONITOR_MTYPE_SUMQ = "SUMQ";
+        public static final String DRLMONITOR_MTYPE_ALIM = "ALIM";
+        public static final String DRLMONITOR_MTYPE_VLIM = "VLIM";
+        public static final String PILEPLAN_STATUS_N = "N";
+        public static final String PILEPLAN_STATUS_D = "D";
+        public static final String PILEPLAN_STATUS_C = "C";
+        public static final String PILEPLAN_STATUS_F = "F";
+        public static final String DRLRECMEMO_STATUS_N = "N";
+        public static final String DRLRECMEMO_STATUS_A = "A ";
+
+        public static final String USER_STATUS_A = "A";
+        public static final String USER_STATUS_L = "L";
+        public static final String USER_STATUS_N = "N";
+
+    }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 20, 2016 9:33:46 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated Jul 21, 2016 12:09:12 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.rdsic.pcm.data.entity.Drlrecmast" table="drlrecmast" catalog="pcm" optimistic-lock="version">
         <composite-id name="id" class="com.rdsic.pcm.data.entity.DrlrecmastId">
@@ -23,6 +23,26 @@
         <property name="dmid" type="int">
             <column name="DMID" not-null="true">
                 <comment>Drilling machine id</comment>
+            </column>
+        </property>
+        <property name="driver" type="java.lang.Integer">
+            <column name="DRIVER">
+                <comment>Driver id who work on the drilling machine</comment>
+            </column>
+        </property>
+        <property name="fmid" type="string">
+            <column name="FMID" length="50">
+                <comment>Flow meter id of drilling machine</comment>
+            </column>
+        </property>
+        <property name="mpid" type="java.lang.Integer">
+            <column name="MPID">
+                <comment>Mixing plant id from which the machine loads concrete</comment>
+            </column>
+        </property>
+        <property name="sid" type="java.lang.Integer">
+            <column name="SID">
+                <comment>Silo Id from which the mixing plant loads cement</comment>
             </column>
         </property>
         <property name="deepmeter" type="java.lang.Double">

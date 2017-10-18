@@ -1,5 +1,5 @@
 package com.rdsic.pcm.data.entity;
-// Generated Jun 20, 2016 9:33:45 AM by Hibernate Tools 4.3.1
+// Generated Jul 21, 2016 12:09:09 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -14,6 +14,10 @@ public class Drlrecmemo  implements java.io.Serializable {
      private int ppid;
      private int prid;
      private int dmid;
+     private Integer driver;
+     private String fmid;
+     private Integer mpid;
+     private Integer sid;
      private Double deepmeter;
      private Integer direction;
      private Boolean emptydrill;
@@ -45,11 +49,15 @@ public class Drlrecmemo  implements java.io.Serializable {
         this.dmid = dmid;
         this.appsts = appsts;
     }
-    public Drlrecmemo(DrlrecmemoId id, int ppid, int prid, int dmid, Double deepmeter, Integer direction, Boolean emptydrill, Double drillmeter, Double rotatemeter, Double rq, Double rqtotal, Double amp, Double psr, Double ndn, Double rdq, Double rdqtotal, Boolean startrec, Boolean endrec, Integer recby, Date rectime, String appby, Date apptime, String appsts) {
+    public Drlrecmemo(DrlrecmemoId id, int ppid, int prid, int dmid, Integer driver, String fmid, Integer mpid, Integer sid, Double deepmeter, Integer direction, Boolean emptydrill, Double drillmeter, Double rotatemeter, Double rq, Double rqtotal, Double amp, Double psr, Double ndn, Double rdq, Double rdqtotal, Boolean startrec, Boolean endrec, Integer recby, Date rectime, String appby, Date apptime, String appsts) {
        this.id = id;
        this.ppid = ppid;
        this.prid = prid;
        this.dmid = dmid;
+       this.driver = driver;
+       this.fmid = fmid;
+       this.mpid = mpid;
+       this.sid = sid;
        this.deepmeter = deepmeter;
        this.direction = direction;
        this.emptydrill = emptydrill;
@@ -98,6 +106,34 @@ public class Drlrecmemo  implements java.io.Serializable {
     
     public void setDmid(int dmid) {
         this.dmid = dmid;
+    }
+    public Integer getDriver() {
+        return this.driver;
+    }
+    
+    public void setDriver(Integer driver) {
+        this.driver = driver;
+    }
+    public String getFmid() {
+        return this.fmid;
+    }
+    
+    public void setFmid(String fmid) {
+        this.fmid = fmid;
+    }
+    public Integer getMpid() {
+        return this.mpid;
+    }
+    
+    public void setMpid(Integer mpid) {
+        this.mpid = mpid;
+    }
+    public Integer getSid() {
+        return this.sid;
+    }
+    
+    public void setSid(Integer sid) {
+        this.sid = sid;
     }
     public Double getDeepmeter() {
         return this.deepmeter;
